@@ -1,6 +1,6 @@
 using System;
 
-namespace AnAppleADay.Models
+namespace A3D.Web.Models
 {
     public class ErrorViewModel
     {
