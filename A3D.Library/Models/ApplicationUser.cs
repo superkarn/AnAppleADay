@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace A3D.Library.Models
+{
+    public class ApplicationUser
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public bool IsActive { get; set; } = true;
+        public string Email { get; set; }
+        public string CreatedDate { get; set; }
+
+        public ICollection<Activity> Activities { get; set; }
+    }
+}
