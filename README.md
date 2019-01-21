@@ -1,0 +1,1 @@
+See [wiki](https://github.com/superkarn/AnAppleADay/wiki) for more info
