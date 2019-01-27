@@ -21,6 +21,8 @@ using SimpleInjector.Lifestyles;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using A3D.Library.Services.Interfaces;
 using A3D.Library.Services;
+using A3D.Library.Repositories.LookUp;
+using A3D.Library.Models.LookUp;
 
 namespace A3D.Api
 {
@@ -106,6 +108,9 @@ namespace A3D.Api
             container.Register<IActivityService, ActivityService>(Lifestyle.Scoped);
             container.Register<IActivityInstanceService, ActivityInstanceService>(Lifestyle.Scoped);
             container.Register<IActivityNotificationService, ActivityNotificationService>(Lifestyle.Scoped);
+            container.Register<ILookUpRepository<ActivityPrivacy>, ActivityPrivacyRepository>(Lifestyle.Scoped);
+            container.Register<ILookUpRepository<ActivityStatus>, ActivityStatusRepository>(Lifestyle.Scoped);
+            container.Register<ILookUpRepository<NotificationType>, NotificationTypeRepository>(Lifestyle.Scoped);
             container.Register<ILookUpService, LookUpService>(Lifestyle.Scoped);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
