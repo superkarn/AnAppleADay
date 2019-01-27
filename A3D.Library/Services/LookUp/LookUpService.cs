@@ -1,11 +1,10 @@
 ﻿using A3D.Library.Models;
 using A3D.Library.Models.LookUp;
-using A3D.Library.Repositories.EntityFramework;
-using A3D.Library.Repositories.LookUp;
+using A3D.Library.Repositories.Interfaces;
 using A3D.Library.Services.Interfaces;
 using System.Collections.Generic;
 
-namespace A3D.Library.Services
+namespace A3D.Library.Services.LookUp
 {
     public class LookUpService : ILookUpService
     {

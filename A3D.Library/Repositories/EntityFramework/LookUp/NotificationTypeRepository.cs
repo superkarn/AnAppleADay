@@ -1,7 +1,6 @@
 ﻿using A3D.Library.Models.LookUp;
-using A3D.Library.Repositories.EntityFramework;
 
-namespace A3D.Library.Repositories.LookUp
+namespace A3D.Library.Repositories.EntityFramework.LookUp
 {
     public class NotificationTypeRepository : BaseLookUpRepository<NotificationType>
     {

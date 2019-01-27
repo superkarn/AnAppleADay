@@ -1,9 +1,9 @@
 ﻿using A3D.Library.Models;
-using A3D.Library.Repositories.EntityFramework;
+using A3D.Library.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace A3D.Library.Repositories.LookUp
+namespace A3D.Library.Repositories.EntityFramework.LookUp
 {
     public abstract class BaseLookUpRepository<TEntity> : ILookUpRepository<TEntity> where TEntity : BaseLookUpModel
     {
