@@ -22,12 +22,12 @@ namespace A3D.Library.Services
             return new Activity() { Id = id, Name = $"activity{id}" };
         }
 
-        public IEnumerable<Activity> GetByOwnerId(int ownerId)
+        public IEnumerable<Activity> GetByCreatorId(int creatorId)
         {
             IList<Activity> list = new List<Activity>();
-            list.Add(new Activity() { Id = 1, Name = "activity1", CreatorId = ownerId });
-            list.Add(new Activity() { Id = 2, Name = "activity2", CreatorId = ownerId });
-            list.Add(new Activity() { Id = 3, Name = "activity3", CreatorId = ownerId });
+            list.Add(new Activity() { Id = 1, Name = "activity1", CreatorId = creatorId });
+            list.Add(new Activity() { Id = 2, Name = "activity2", CreatorId = creatorId });
+            list.Add(new Activity() { Id = 3, Name = "activity3", CreatorId = creatorId });
 
             return list;
         }

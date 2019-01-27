@@ -104,6 +104,9 @@ namespace A3D.Api
 
             // Add application services. For instance:
             container.Register<IActivityService, ActivityService>(Lifestyle.Scoped);
+            container.Register<IActivityInstanceService, ActivityInstanceService>(Lifestyle.Scoped);
+            container.Register<IActivityNotificationService, ActivityNotificationService>(Lifestyle.Scoped);
+            container.Register<ILookUpService, LookUpService>(Lifestyle.Scoped);
 
             // Allow Simple Injector to resolve services from ASP.NET Core.
             container.AutoCrossWireAspNetComponents(app);

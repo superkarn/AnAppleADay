@@ -5,6 +5,6 @@ namespace A3D.Library.Services.Interfaces
 {
     public interface IActivityInstanceService : ICrudService<ActivityInstance>
     {
-        IEnumerable<ActivityInstance> GetByOwnerId(int ownerId);
+        IEnumerable<ActivityInstance> GetByActivityId(int activityId);
     }
 }
