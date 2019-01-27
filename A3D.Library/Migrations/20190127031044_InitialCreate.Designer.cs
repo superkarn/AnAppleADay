@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace A3D.Library.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190121160434_InitialCreate")]
+    [Migration("20190127031044_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -193,9 +193,7 @@ namespace A3D.Library.Migrations
 
             modelBuilder.Entity("A3D.Library.Models.ActivityPrivacy", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Description");
 
@@ -226,9 +224,7 @@ namespace A3D.Library.Migrations
 
             modelBuilder.Entity("A3D.Library.Models.ActivityState", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Description");
 
@@ -259,9 +255,7 @@ namespace A3D.Library.Migrations
 
             modelBuilder.Entity("A3D.Library.Models.ActivityStatus", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Description");
 
@@ -349,15 +343,17 @@ namespace A3D.Library.Migrations
 
             modelBuilder.Entity("A3D.Library.Models.NotificationType", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Id");
 
                     b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("NotificationType");
 
