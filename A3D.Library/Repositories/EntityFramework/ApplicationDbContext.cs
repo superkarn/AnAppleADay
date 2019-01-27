@@ -11,6 +11,12 @@ namespace A3D.Library.Repositories.EntityFramework
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityInstance> ActivityInstances { get; set; }
+        public DbSet<ActivityNotification> ActivityNotifications { get; set; }
+
+        public DbSet<ActivityPrivacy> ActivityPrivacies { get; set; }
+        public DbSet<ActivityState> ActivityStates { get; set; }
+        public DbSet<ActivityStatus> ActivityStatuses { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
