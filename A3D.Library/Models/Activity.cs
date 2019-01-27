@@ -9,6 +9,10 @@ namespace A3D.Library.Models
         public int CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
+        /// <summary>
+        /// When an Activity is active, new ActivityInstances can be added.  Notifications will be sent on schedule.
+        /// When an Activity is inactive, New ActivityInstances cannot be added.  Notifications will not be sent.
+        /// </summary>
         public bool IsActive { get; set; } = true;
 
         public int PrivacyId { get; set; }

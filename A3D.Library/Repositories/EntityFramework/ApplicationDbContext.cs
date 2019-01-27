@@ -14,7 +14,6 @@ namespace A3D.Library.Repositories.EntityFramework
         public DbSet<ActivityNotification> ActivityNotifications { get; set; }
 
         public DbSet<ActivityPrivacy> ActivityPrivacies { get; set; }
-        public DbSet<ActivityState> ActivityStates { get; set; }
         public DbSet<ActivityStatus> ActivityStatuses { get; set; }
         public DbSet<NotificationType> NotificationTypes { get; set; }
 
@@ -61,9 +60,6 @@ namespace A3D.Library.Repositories.EntityFramework
             modelBuilder.Entity<ActivityPrivacy>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<ActivityPrivacy>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
 
-            modelBuilder.Entity<ActivityState>().HasIndex(x => x.Name).IsUnique();
-            modelBuilder.Entity<ActivityState>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
-
             modelBuilder.Entity<ActivityStatus>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<ActivityStatus>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
 
@@ -86,9 +82,6 @@ namespace A3D.Library.Repositories.EntityFramework
             #region Seeding look up values.  Required by the application.
             modelBuilder.Entity<ActivityPrivacy>().HasData(new ActivityPrivacy { Id = 1, Name = "Private", Description = "Can be viewed only by owner" });
             modelBuilder.Entity<ActivityPrivacy>().HasData(new ActivityPrivacy { Id = 2, Name = "Public", Description = "Can be viewed by anybody" });
-            
-            modelBuilder.Entity<ActivityState>().HasData(new ActivityState { Id = 1, Name = "Active", Description = "Activity is active.  New ActivityInstances can be added.  Notifications will be sent on schedule." });
-            modelBuilder.Entity<ActivityState>().HasData(new ActivityState { Id = 2, Name = "Inactive", Description = "Activity is not active.  New ActivityInstances cannot be added.  Notifications will not be sent." });
 
             modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 1, Name = "Skipped", Description = "Activity Instance was skipped (not completed)" });
             modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 2, Name = "Partial", Description = "Activity Instance was partially completed" });
