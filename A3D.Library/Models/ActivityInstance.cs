@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace A3D.Library.Models
 {
-    public class ActivityInstance
+    public class ActivityInstance : BaseModel
     {
         public int Id { get; set; }
 

@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace A3D.Library.Models
+﻿namespace A3D.Library.Models
 {
-    public class ActivityNotification
+    public class ActivityNotification : BaseModel
     {
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }

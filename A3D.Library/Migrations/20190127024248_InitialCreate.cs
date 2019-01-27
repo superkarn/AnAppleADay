@@ -157,6 +157,7 @@ namespace A3D.Library.Migrations
                 {
                     ActivityId = table.Column<int>(nullable: false),
                     NotificationTypeId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     IsEnabled = table.Column<bool>(nullable: false, defaultValue: true),
                     Recipient = table.Column<string>(nullable: false)
                 },
@@ -176,89 +177,6 @@ namespace A3D.Library.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
-
-            migrationBuilder.InsertData(
-                table: "ActivityPrivacy",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Can be viewed only by owner", "Private" },
-                    { 2, "Can be viewed by anybody", "Public" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ActivityState",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Activity is active.  New ActivityInstances can be added.  Notifications will be sent on schedule.", "Active" },
-                    { 2, "Activity is not active.  New ActivityInstances cannot be added.  Notifications will not be sent.", "Inactive" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ActivityStatus",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Activity Instance was skipped (not completed)", "Skipped" },
-                    { 2, "Activity Instance was partially completed", "Partial" },
-                    { 3, "Activity Instance was completed", "Completed" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ApplicationUsers",
-                columns: new[] { "Id", "Email", "IsActive", "Username" },
-                values: new object[] { 1, "karn@example.com", true, "karn" });
-
-            migrationBuilder.InsertData(
-                table: "ApplicationUsers",
-                columns: new[] { "Id", "Email", "IsActive", "Username" },
-                values: new object[] { 2, "test@example.com", true, "test" });
-
-            migrationBuilder.InsertData(
-                table: "ApplicationUsers",
-                columns: new[] { "Id", "Email", "IsActive", "Username" },
-                values: new object[] { 3, "test2@example.com", true, "test2" });
-
-            migrationBuilder.InsertData(
-                table: "NotificationType",
-                columns: new[] { "Id", "Description", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Send notification to an email address", "Email" },
-                    { 2, "Send notification to a Sms device", "Sms" },
-                    { 3, "Send notification via Broser Notification", "Browser" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Activities",
-                columns: new[] { "Id", "CreatorId", "Description", "IsActive", "LastCompletedDate", "Name", "Schedule", "ValueUnit" },
-                values: new object[] { 1, 1, null, true, null, "Test Activity", null, null });
-
-            migrationBuilder.InsertData(
-                table: "Activities",
-                columns: new[] { "Id", "CreatorId", "Description", "IsActive", "LastCompletedDate", "Name", "PrivacyId", "Schedule", "ValueUnit" },
-                values: new object[] { 2, 1, null, true, null, "Exercise", 2, null, null });
-
-            migrationBuilder.InsertData(
-                table: "Activities",
-                columns: new[] { "Id", "CreatorId", "Description", "IsActive", "LastCompletedDate", "Name", "Schedule", "ValueUnit" },
-                values: new object[] { 3, 1, null, true, null, "Read every day", null, "Pages" });
-
-            migrationBuilder.InsertData(
-                table: "ActivityInstances",
-                columns: new[] { "Id", "ActivityId", "CreatorId", "Notes", "Value" },
-                values: new object[] { 1, 1, 1, null, "3" });
-
-            migrationBuilder.InsertData(
-                table: "ActivityInstances",
-                columns: new[] { "Id", "ActivityId", "CreatorId", "Notes", "StatusId", "Value" },
-                values: new object[] { 2, 1, 1, null, 2, "1" });
-
-            migrationBuilder.InsertData(
-                table: "ActivityInstances",
-                columns: new[] { "Id", "ActivityId", "CreatorId", "Notes", "StatusId", "Value" },
-                values: new object[] { 3, 1, 1, null, 3, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Activities_CreatorId",

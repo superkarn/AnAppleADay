@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace A3D.Library.Models
 {
-    public class Activity
+    public class Activity : BaseModel
     {
         public int Id { get; set; }
 

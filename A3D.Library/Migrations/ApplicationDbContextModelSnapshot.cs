@@ -64,39 +64,6 @@ namespace A3D.Library.Migrations
                     b.HasIndex("PrivacyId");
 
                     b.ToTable("Activities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatorId = 1,
-                            IsActive = true,
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Test Activity",
-                            PrivacyId = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatorId = 1,
-                            IsActive = true,
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Exercise",
-                            PrivacyId = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatorId = 1,
-                            IsActive = true,
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Read every day",
-                            PrivacyId = 0,
-                            ValueUnit = "Pages"
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.ActivityInstance", b =>
@@ -136,37 +103,6 @@ namespace A3D.Library.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("ActivityInstances");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ActivityId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatorId = 1,
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StatusId = 0,
-                            Value = "3"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ActivityId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatorId = 1,
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StatusId = 2,
-                            Value = "1"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ActivityId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatorId = 1,
-                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StatusId = 3
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.ActivityNotification", b =>
@@ -174,6 +110,8 @@ namespace A3D.Library.Migrations
                     b.Property<int>("ActivityId");
 
                     b.Property<int>("NotificationTypeId");
+
+                    b.Property<int>("Id");
 
                     b.Property<bool>("IsEnabled")
                         .ValueGeneratedOnAdd()
@@ -206,20 +144,6 @@ namespace A3D.Library.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("ActivityPrivacy");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Can be viewed only by owner",
-                            Name = "Private"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Can be viewed by anybody",
-                            Name = "Public"
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.ActivityState", b =>
@@ -239,20 +163,6 @@ namespace A3D.Library.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("ActivityState");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Activity is active.  New ActivityInstances can be added.  Notifications will be sent on schedule.",
-                            Name = "Active"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Activity is not active.  New ActivityInstances cannot be added.  Notifications will not be sent.",
-                            Name = "Inactive"
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.ActivityStatus", b =>
@@ -272,26 +182,6 @@ namespace A3D.Library.Migrations
                         .HasFilter("[Name] IS NOT NULL");
 
                     b.ToTable("ActivityStatus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Activity Instance was skipped (not completed)",
-                            Name = "Skipped"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Activity Instance was partially completed",
-                            Name = "Partial"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Activity Instance was completed",
-                            Name = "Completed"
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.ApplicationUser", b =>
@@ -320,29 +210,6 @@ namespace A3D.Library.Migrations
                         .IsUnique();
 
                     b.ToTable("ApplicationUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "karn@example.com",
-                            IsActive = true,
-                            Username = "karn"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "test@example.com",
-                            IsActive = true,
-                            Username = "test"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Email = "test2@example.com",
-                            IsActive = true,
-                            Username = "test2"
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.NotificationType", b =>
@@ -358,26 +225,6 @@ namespace A3D.Library.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("NotificationType");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Send notification to an email address",
-                            Name = "Email"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Send notification to a Sms device",
-                            Name = "Sms"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Send notification via Broser Notification",
-                            Name = "Browser"
-                        });
                 });
 
             modelBuilder.Entity("A3D.Library.Models.Activity", b =>
