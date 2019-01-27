@@ -1,4 +1,6 @@
-﻿namespace A3D.Library.Models
+﻿using A3D.Library.Models.LookUp;
+
+namespace A3D.Library.Models
 {
     public class ActivityNotification : BaseModel
     {

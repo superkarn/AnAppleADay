@@ -1,12 +1,11 @@
-﻿using System;
+﻿using A3D.Library.Models.LookUp;
+using System;
 using System.Collections.Generic;
 
 namespace A3D.Library.Models
 {
     public class Activity : BaseModel
     {
-        public int Id { get; set; }
-
         public int CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
