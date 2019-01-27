@@ -18,7 +18,7 @@ namespace A3D.Library.Repositories.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region Table properties
+            #region Data tables
             modelBuilder.Entity<Activity>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<Activity>().Property(x => x.CreatorId).IsRequired();
             modelBuilder.Entity<Activity>().Property(x => x.IsActive).HasDefaultValue(true); // C# property is also defaulted to true
@@ -43,17 +43,25 @@ namespace A3D.Library.Repositories.EntityFramework
             modelBuilder.Entity<ActivityNotification>().Property(x => x.IsEnabled).HasDefaultValue(true); // C# property is also defaulted to true
             modelBuilder.Entity<ActivityNotification>().Property(x => x.Recipient).IsRequired();
 
-            modelBuilder.Entity<ActivityPrivacy>().HasIndex(x => x.Name).IsUnique();
-
-            modelBuilder.Entity<ActivityState>().HasIndex(x => x.Name).IsUnique();
-
-            modelBuilder.Entity<ActivityStatus>().HasIndex(x => x.Name).IsUnique();
-
             modelBuilder.Entity<ApplicationUser>().HasIndex(x => x.Username).IsUnique();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.Username).IsRequired();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.IsActive).HasDefaultValue(true); // C# property is also defaulted to true
             modelBuilder.Entity<ApplicationUser>().Property(x => x.Email).IsRequired();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.CreatedDate).HasDefaultValueSql("getutcdate()");
+            #endregion
+
+            #region LookUp tables
+            modelBuilder.Entity<ActivityPrivacy>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<ActivityPrivacy>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
+
+            modelBuilder.Entity<ActivityState>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<ActivityState>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
+
+            modelBuilder.Entity<ActivityStatus>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<ActivityStatus>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
+
+            modelBuilder.Entity<NotificationType>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<NotificationType>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
             #endregion
 
             #region Disable cascade delete
