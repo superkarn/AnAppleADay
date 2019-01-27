@@ -5,6 +5,8 @@ namespace A3D.Library.Models
 {
     public class ActivityInstance : BaseModel
     {
+        public int Id { get; set; }
+
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }
 
