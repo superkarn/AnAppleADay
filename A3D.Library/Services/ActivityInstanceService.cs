@@ -12,7 +12,7 @@ namespace A3D.Library.Services
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void DeleteById(int id)
         {
             throw new NotImplementedException();
         }

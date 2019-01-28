@@ -1,5 +1,7 @@
 ﻿using A3D.Library.Models;
+using A3D.Library.Repositories.Interfaces;
 using A3D.Library.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
@@ -7,29 +9,44 @@ namespace A3D.Library.Services
 {
     public class ActivityService : IActivityService
     {
+        private readonly IActivityRepository activityRepository;
+
+        public ActivityService(IActivityRepository activityRepository)
+        {
+            this.activityRepository = activityRepository;
+        }
+
         public int Create(Activity obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void DeleteById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.activityRepository.DeleteById(id);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // This exception is expected when trying to delete an item that does not exist.
+                // We catch it and let it through, because the end result is as intially requested: the item no longer exists.
+                // For any other exception, we let it bubble up.
+                if (!ex.Message.Contains("Database operation expected to affect 1 row(s) but actually affected 0 row(s)"))
+                {
+                    throw ex;
+                }
+            }
         }
 
         public Activity GetById(int id)
         {
-            return new Activity() { Id = id, Name = $"activity{id}" };
+            return this.activityRepository.GetById(id);
         }
 
         public IEnumerable<Activity> GetByCreatorId(int creatorId)
         {
-            IList<Activity> list = new List<Activity>();
-            list.Add(new Activity() { Id = 1, Name = "activity1", CreatorId = creatorId });
-            list.Add(new Activity() { Id = 2, Name = "activity2", CreatorId = creatorId });
-            list.Add(new Activity() { Id = 3, Name = "activity3", CreatorId = creatorId });
-
-            return list;
+            return this.activityRepository.GetByCreatorId(creatorId);
         }
 
         public void Update(Activity obj)

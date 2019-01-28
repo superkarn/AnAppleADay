@@ -7,6 +7,6 @@ namespace A3D.Library.Services.Interfaces
         int Create(T obj);
         T GetById(int id);
         void Update(T obj);
-        void Delete(int id);
+        void DeleteById(int id);
     }
 }

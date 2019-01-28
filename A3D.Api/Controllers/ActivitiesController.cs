@@ -28,7 +28,7 @@ namespace A3D.Api.Controllers
         [HttpGet("{id}")]
         public ActionResult<Activity> Get(int userId, int id)
         {
-            // TODO add logic to check if userId has access to this Activity
+            // TODO add logic to check if userId has permission
 
             return this.activityService.GetById(id);
         }
@@ -49,6 +49,9 @@ namespace A3D.Api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int userId, int id)
         {
+            // TODO add logic to check if userId has permission
+
+            this.activityService.DeleteById(id);
         }
     }
 }
