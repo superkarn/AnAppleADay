@@ -4,9 +4,9 @@ namespace A3D.Library.Services.Interfaces
 {
     public interface ICrudService<T> where T : BaseModel
     {
-        int Create(T obj);
+        int Create(T item);
         T GetById(int id);
-        void Update(T obj);
+        void Update(T item);
         void DeleteById(int id);
     }
 }

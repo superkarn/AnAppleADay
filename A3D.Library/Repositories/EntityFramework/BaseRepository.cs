@@ -16,11 +16,24 @@ namespace A3D.Library.Repositories.EntityFramework
             this.DbSet = this.Context.Set<TEntity>();
         }
 
+        public virtual void Create(TEntity item)
+        {
+            this.Context.Add(item);
+            this.Context.SaveChanges();
+        }
+
         public abstract void DeleteById(int id);
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             return this.DbSet.Find(id);
+        }
+
+
+        public virtual void Update(TEntity item)
+        {
+            this.Context.Attach(item);
+            this.Context.SaveChanges();
         }
     }
 }

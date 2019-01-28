@@ -7,7 +7,7 @@ namespace A3D.Library.Services
 {
     public class ActivityInstanceService : IActivityInstanceService
     {
-        public int Create(ActivityInstance obj)
+        public int Create(ActivityInstance item)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace A3D.Library.Services
             return list;
         }
 
-        public void Update(ActivityInstance obj)
+        public void Update(ActivityInstance item)
         {
             throw new NotImplementedException();
         }

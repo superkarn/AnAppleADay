@@ -7,7 +7,7 @@ namespace A3D.Library.Services
 {
     public class ActivityNotificationService : IActivityNotificationService
     {
-        public int Create(ActivityNotification obj)
+        public int Create(ActivityNotification item)
         {
             throw new NotImplementedException();
         }
@@ -32,7 +32,7 @@ namespace A3D.Library.Services
             return new ActivityNotification() { ActivityId = 1000, IsEnabled = true, Recipient = $"recipient-{id}" };
         }
 
-        public void Update(ActivityNotification obj)
+        public void Update(ActivityNotification item)
         {
             throw new NotImplementedException();
         }

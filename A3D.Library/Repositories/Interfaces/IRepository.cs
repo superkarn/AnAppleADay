@@ -5,7 +5,9 @@ namespace A3D.Library.Repositories.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : BaseModel
     {
-        TEntity GetById(int id);
+        void Create(TEntity item);
         void DeleteById(int id);
+        TEntity GetById(int id);
+        void Update(TEntity item);
     }
 }

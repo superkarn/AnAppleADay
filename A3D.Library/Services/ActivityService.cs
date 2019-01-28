@@ -16,9 +16,24 @@ namespace A3D.Library.Services
             this.activityRepository = activityRepository;
         }
 
-        public int Create(Activity obj)
+        public int Create(Activity item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.activityRepository.Create(item);
+            }
+            catch (DbUpdateException ex)
+            {
+                // This exception is expected when trying to delete an item that does not exist.
+                // We catch it and let it through, because the end result is as intially requested: the item no longer exists.
+                // For any other exception, we let it bubble up.
+                if (!ex.Message.Contains("Database operation expected to affect 1 row(s) but actually affected 0 row(s)"))
+                {
+                    throw ex;
+                }
+            }
+
+            return 1;
         }
 
         public void DeleteById(int id)
@@ -49,9 +64,9 @@ namespace A3D.Library.Services
             return this.activityRepository.GetByCreatorId(creatorId);
         }
 
-        public void Update(Activity obj)
+        public void Update(Activity item)
         {
-            throw new NotImplementedException();
+            this.activityRepository.Update(item);
         }
     }
 }
