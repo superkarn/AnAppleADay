@@ -5,7 +5,7 @@
     /// Some models do not Id, as they have Composite Keys instead (e.g. ActivityNotification).
     /// These do not inherit from this class.
     /// </summary>
-    public abstract class BaseIdModel : BaseModel
+    public abstract class BaseWithIdModel : BaseModel
     {
         public int Id { get; set; }
     }

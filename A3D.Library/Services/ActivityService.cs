@@ -18,22 +18,7 @@ namespace A3D.Library.Services
 
         public int Create(Activity item)
         {
-            try
-            {
-                this.activityRepository.Create(item);
-            }
-            catch (DbUpdateException ex)
-            {
-                // This exception is expected when trying to delete an item that does not exist.
-                // We catch it and let it through, because the end result is as intially requested: the item no longer exists.
-                // For any other exception, we let it bubble up.
-                if (!ex.Message.Contains("Database operation expected to affect 1 row(s) but actually affected 0 row(s)"))
-                {
-                    throw ex;
-                }
-            }
-
-            return 1;
+            return this.activityRepository.Create(item);
         }
 
         public void DeleteById(int id)

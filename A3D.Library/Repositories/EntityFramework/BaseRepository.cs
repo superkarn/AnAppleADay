@@ -5,7 +5,7 @@ using System;
 
 namespace A3D.Library.Repositories.EntityFramework
 {
-    public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseModel
+    public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : BaseModel, new()
     {
         protected readonly ApplicationDbContext Context;
         protected readonly DbSet<TEntity> DbSet;
@@ -16,11 +16,7 @@ namespace A3D.Library.Repositories.EntityFramework
             this.DbSet = this.Context.Set<TEntity>();
         }
 
-        public virtual void Create(TEntity item)
-        {
-            this.Context.Add(item);
-            this.Context.SaveChanges();
-        }
+        public abstract int Create(TEntity item);
 
         public abstract void DeleteById(int id);
 
@@ -28,7 +24,6 @@ namespace A3D.Library.Repositories.EntityFramework
         {
             return this.DbSet.Find(id);
         }
-
 
         public virtual void Update(TEntity item)
         {

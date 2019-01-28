@@ -2,7 +2,7 @@
 
 namespace A3D.Library.Models
 {
-    public class ApplicationUser : BaseIdModel
+    public class ApplicationUser : BaseWithIdModel
     {
         public string Username { get; set; }
         public bool IsActive { get; set; } = true;

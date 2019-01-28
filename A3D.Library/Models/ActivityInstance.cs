@@ -3,7 +3,7 @@ using System;
 
 namespace A3D.Library.Models
 {
-    public class ActivityInstance : BaseIdModel
+    public class ActivityInstance : BaseWithIdModel
     {
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }

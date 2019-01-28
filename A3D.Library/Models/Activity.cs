@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace A3D.Library.Models
 {
-    public class Activity : BaseIdModel
+    public class Activity : BaseWithIdModel
     {
         public int CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
