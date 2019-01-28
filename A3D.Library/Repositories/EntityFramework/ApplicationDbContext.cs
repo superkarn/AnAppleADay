@@ -25,7 +25,7 @@ namespace A3D.Library.Repositories.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Data tables
-            modelBuilder.Entity<Activity>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Activity>().HasIndex(x => new { x.CreatorId, x.Name }).IsUnique();
             modelBuilder.Entity<Activity>().Property(x => x.CreatorId).IsRequired();
             modelBuilder.Entity<Activity>().Property(x => x.IsActive).HasDefaultValue(true); // C# property is also defaulted to true
             modelBuilder.Entity<Activity>().Property(x => x.PrivacyId).HasDefaultValue(1);
@@ -100,6 +100,8 @@ namespace A3D.Library.Repositories.EntityFramework
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 1, CreatorId = 1, Name = "Test Activity" });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 2, CreatorId = 1, Name = "Exercise", PrivacyId = 2 });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 3, CreatorId = 1, Name = "Read every day", ValueUnit = "Pages" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 4, CreatorId = 2, Name = "Test Activity" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 5, CreatorId = 2, Name = "More test activities", PrivacyId = 2, ValueUnit = "Count" });
 
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 1, ActivityId = 1, CreatorId = 1, Value = "3" });
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 2, ActivityId = 1, CreatorId = 1, Value = "1", StatusId = 2 });
