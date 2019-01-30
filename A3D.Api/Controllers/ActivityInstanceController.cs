@@ -35,20 +35,31 @@ namespace A3D.Api.Controllers
 
         // POST rest/users/{userId}/activities/{activityId}/instances
         [HttpPost]
-        public void Post(int userId, int activityId, [FromBody] Activity value)
+        public ActionResult<int> Post(int userId, int activityId, [FromBody] ActivityInstance value)
         {
+            try
+            {
+                return this.activityInstanceService.Create(value);
+            }
+            catch
+            {
+                // for now, return 409 Conflict
+                return Conflict();
+            }
         }
 
         // PUT rest/users/{userId}/activities/{activityId}/instances/5
         [HttpPut("{id}")]
-        public void Put(int userId, int activityId, int id, [FromBody] Activity value)
+        public void Put(int userId, int activityId, int id, [FromBody] ActivityInstance value)
         {
+            this.activityInstanceService.Update(value);
         }
 
         // DELETE rest/users/{userId}/activities/{activityId}/instances/5
         [HttpDelete("{id}")]
         public void Delete(int userId, int activityId, int id)
         {
+            this.activityInstanceService.DeleteById(id);
         }
     }
 }
