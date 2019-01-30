@@ -5,14 +5,16 @@ using System;
 
 namespace A3D.Library.Repositories.EntityFramework
 {
-    public abstract class BaseWithIdRepository<TEntity> : BaseRepository<TEntity> where TEntity : BaseWithIdModel, new()
+    public abstract class BaseWithIdRepository<TEntity> : IWithIdRepository<TEntity> where TEntity : BaseWithIdModel, new()
     {
+        protected readonly ApplicationDbContext Context;
+        protected readonly DbSet<TEntity> DbSet;
+
         public BaseWithIdRepository(ApplicationDbContext context)
-            : base(context)
         {
         }
 
-        public override int Create(TEntity item)
+        public virtual int Create(TEntity item)
         {
             this.Context.Add(item);
             this.Context.SaveChanges();
@@ -20,7 +22,7 @@ namespace A3D.Library.Repositories.EntityFramework
             return item.Id;
         }
 
-        public override void DeleteById(int id)
+        public virtual void DeleteById(int id)
         {
             TEntity item = new TEntity() { Id = id };
             this.Context.Attach(item as TEntity);
@@ -28,7 +30,12 @@ namespace A3D.Library.Repositories.EntityFramework
             this.Context.SaveChanges();
         }
 
-        public override void Update(TEntity item)
+        public virtual TEntity GetById(int id)
+        {
+            return this.DbSet.Find(id);
+        }
+
+        public virtual void Update(TEntity item)
         {
             var entity = this.Context.Find(item.GetType(), item.Id);
 

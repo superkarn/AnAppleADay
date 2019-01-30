@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace A3D.Library.Repositories.Interfaces
 {
-    public interface IActivityRepository : IRepository<Activity>
+    public interface IActivityRepository : IWithIdRepository<Activity>
     {
         IQueryable<Activity> GetByCreatorId(int creatorId);
     }

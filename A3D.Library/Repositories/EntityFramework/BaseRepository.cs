@@ -18,13 +18,6 @@ namespace A3D.Library.Repositories.EntityFramework
 
         public abstract int Create(TEntity item);
 
-        public abstract void DeleteById(int id);
-
-        public virtual TEntity GetById(int id)
-        {
-            return this.DbSet.Find(id);
-        }
-
         public abstract void Update(TEntity item);
     }
 }
