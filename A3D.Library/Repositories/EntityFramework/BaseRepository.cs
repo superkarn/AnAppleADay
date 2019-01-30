@@ -25,10 +25,6 @@ namespace A3D.Library.Repositories.EntityFramework
             return this.DbSet.Find(id);
         }
 
-        public virtual void Update(TEntity item)
-        {
-            this.Context.Attach(item);
-            this.Context.SaveChanges();
-        }
+        public abstract void Update(TEntity item);
     }
 }

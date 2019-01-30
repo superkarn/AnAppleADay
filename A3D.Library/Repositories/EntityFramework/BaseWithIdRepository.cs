@@ -27,5 +27,13 @@ namespace A3D.Library.Repositories.EntityFramework
             this.Context.Remove(item as TEntity);
             this.Context.SaveChanges();
         }
+
+        public override void Update(TEntity item)
+        {
+            var entity = this.Context.Find(item.GetType(), item.Id);
+
+            this.Context.Entry(entity).CurrentValues.SetValues(item);
+            this.Context.SaveChanges();
+        }
     }
 }

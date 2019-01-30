@@ -2,8 +2,8 @@
 using A3D.Library.Repositories.Interfaces;
 using A3D.Library.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
+using System;
 
 namespace A3D.Library.Services
 {
@@ -51,6 +51,17 @@ namespace A3D.Library.Services
 
         public void Update(Activity item)
         {
+            var existingItem = this.activityRepository.GetById(item.Id);
+
+            // TODO make this work with PATCH
+            existingItem.Name = item.Name;
+            existingItem.Privacy = item.Privacy;
+            existingItem.Description = item.Description;
+            existingItem.ValueUnit = item.ValueUnit;
+            existingItem.Schedule = item.Schedule;
+            existingItem.LastModifiedDate = DateTime.UtcNow;
+            existingItem.LastCompletedDate = item.LastCompletedDate;
+
             this.activityRepository.Update(item);
         }
     }

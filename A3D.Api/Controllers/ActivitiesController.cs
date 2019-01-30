@@ -37,8 +37,6 @@ namespace A3D.Api.Controllers
         [HttpPost]
         public ActionResult<int> Post(int userId, [FromBody] Activity value)
         {
-            // TODO return the new id
-
             try
             {
                 return this.activityService.Create(value);
@@ -54,7 +52,6 @@ namespace A3D.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int userId, int id, [FromBody] Activity value)
         {
-            // TODO this doesn't work...
             this.activityService.Update(value);
         }
 
@@ -62,8 +59,6 @@ namespace A3D.Api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int userId, int id)
         {
-            // TODO add logic to check if userId has permission
-
             this.activityService.DeleteById(id);
         }
     }
