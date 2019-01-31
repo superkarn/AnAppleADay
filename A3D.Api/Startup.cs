@@ -106,6 +106,7 @@ namespace A3D.Api
 
             container.Register<IActivityRepository, ActivityRepository>(Lifestyle.Scoped);
             container.Register<IActivityInstanceRepository, ActivityInstanceRepository>(Lifestyle.Scoped);
+            container.Register<IActivityNotificationRepository, ActivityNotificationRepository>(Lifestyle.Scoped);
 
             container.Register<ILookUpRepository<ActivityPrivacy>, ActivityPrivacyRepository>(Lifestyle.Scoped);
             container.Register<ILookUpRepository<ActivityStatus>, ActivityStatusRepository>(Lifestyle.Scoped);

@@ -1,4 +1,5 @@
 ﻿using A3D.Library.Models;
+using A3D.Library.Repositories.Interfaces;
 using A3D.Library.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,34 +8,42 @@ namespace A3D.Library.Services
 {
     public class ActivityNotificationService : IActivityNotificationService
     {
-        public int Create(ActivityNotification item)
+        private readonly IActivityNotificationRepository activityNotificationRepository;
+
+        public ActivityNotificationService(IActivityNotificationRepository activityNotificationRepository)
         {
-            throw new NotImplementedException();
+            this.activityNotificationRepository = activityNotificationRepository;
         }
 
-        public void DeleteById(int id)
+        public void Create(ActivityNotification item)
         {
-            throw new NotImplementedException();
+            this.activityNotificationRepository.Create(item);
+        }
+
+        public void DeleteByKey(int activityId, int notificationTypeId)
+        {
+            this.activityNotificationRepository.DeleteByKey(activityId, notificationTypeId);
         }
 
         public IEnumerable<ActivityNotification> GetByActivityId(int activityId)
         {
-            IList<ActivityNotification> list = new List<ActivityNotification>();
-            list.Add(new ActivityNotification() { ActivityId = activityId, IsEnabled = true, Recipient = $"recipient1" });
-            list.Add(new ActivityNotification() { ActivityId = activityId, IsEnabled = false, Recipient = $"recipient2" });
-            list.Add(new ActivityNotification() { ActivityId = activityId, IsEnabled = true, Recipient = $"recipient3" });
-
-            return list;
+            return this.activityNotificationRepository.GetByActivityId(activityId);
         }
 
-        public ActivityNotification GetById(int id)
+        public ActivityNotification GetByKey(int activityId, int notificationTypeId)
         {
-            return new ActivityNotification() { ActivityId = 1000, IsEnabled = true, Recipient = $"recipient-{id}" };
+            return this.activityNotificationRepository.GetByKey(activityId, notificationTypeId);
         }
 
         public void Update(ActivityNotification item)
         {
-            throw new NotImplementedException();
+            var existingItem = this.activityNotificationRepository.GetByKey(item.ActivityId, item.NotificationTypeId);
+
+            // TODO make this work with PATCH
+            existingItem.IsEnabled = item.IsEnabled;
+            existingItem.Recipient = item.Recipient;
+
+            this.activityNotificationRepository.Update(item);
         }
     }
 }

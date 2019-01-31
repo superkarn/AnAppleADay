@@ -16,7 +16,7 @@ namespace A3D.Library.Repositories.EntityFramework
             this.DbSet = this.Context.Set<TEntity>();
         }
 
-        public abstract int Create(TEntity item);
+        public abstract void Create(TEntity item);
 
         public abstract void Update(TEntity item);
     }
