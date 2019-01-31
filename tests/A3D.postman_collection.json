@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "13b7c972-1f76-4406-8e82-9daf51c83345",
+		"name": "A3D",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Activities",
+			"item": [
+				{
+					"name": "Activities-GetByCreatorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activities-GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activities-DeleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activities-Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ CreatorId: 2, Name: \"New Test Activity 11\"}"
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activities-Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ Id: 5, CreatorId: 2, Name: \"UPDATED\", PrivacyId: 1, ValueUnit: \"UPDATED VALUEUNIT\", Schedule: \"UPDATED SCHEDULE\" }"
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ActivityNotifications",
+			"item": [
+				{
+					"name": "ActivityNotifications-GetByActivityId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/notifications/",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"notifications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityNotifications-GetByKey",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/notifications/notificationTypes/{{notificationTypeId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"notifications",
+								"notificationTypes",
+								"{{notificationTypeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityNotifications-DeleteByKey",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/notifications/notificationTypes/{{notificationTypeId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"notifications",
+								"notificationTypes",
+								"{{notificationTypeId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityNotifications-Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ ActivityId: 2, NotificationTypeId: 2, IsEnabled: true, Recipient: \"111-111-1111\" }"
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/notifications/",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"notifications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityNotifications-Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ ActivityId: 2, NotificationTypeId: 2, IsEnabled: false, Recipient: \"222-222-2222\" }"
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/notifications/notificationTypes/{{notificationTypeId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"notifications",
+								"notificationTypes",
+								"{{notificationTypeId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ActivityInstances",
+			"item": [
+				{
+					"name": "ActivityInstances-GetByCreatorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/instances/",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"instances",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityInstances-GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/instances/{{activityInstanceId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"instances",
+								"{{activityInstanceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityInstances-DeleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/instances/{{activityInstanceId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"instances",
+								"{{activityInstanceId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityInstances-Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ ActivityId: 1, CreatorId: 2, StatusId: 2, Value: \"Yes\", Notes: \"ooh eeeh ooh ah ah\" }"
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/instances/",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"instances",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ActivityInstances-Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ Id: 12, ActivityId: 1, CreatorId: 2, StatusId: 2, Value: \"UPDATED VALUES\", Notes: \"UPDATED NOTES\" }"
+						},
+						"url": {
+							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/instances/{{activityInstanceId}}",
+							"protocol": "https",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"rest",
+								"users",
+								"{{userId}}",
+								"activities",
+								"{{activityId}}",
+								"instances",
+								"{{activityInstanceId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LookUpValues-GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}:{{port}}/rest/lookUpValues",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"rest",
+						"lookUpValues"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
