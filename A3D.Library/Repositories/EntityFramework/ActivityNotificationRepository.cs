@@ -10,7 +10,7 @@ namespace A3D.Library.Repositories.EntityFramework
             : base(context)
         { }
 
-        public override void Create(ActivityNotification item)
+        public void Create(ActivityNotification item)
         {
             this.Context.Add(item);
             this.Context.SaveChanges();
@@ -34,7 +34,7 @@ namespace A3D.Library.Repositories.EntityFramework
             return this.DbSet.Find(activityId, notificationTypeId);
         }
 
-        public override void Update(ActivityNotification item)
+        public void Update(ActivityNotification item)
         {
             var entity = this.Context.ActivityNotifications.Find(item.ActivityId, item.NotificationTypeId);
 

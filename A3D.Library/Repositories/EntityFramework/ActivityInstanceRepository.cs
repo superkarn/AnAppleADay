@@ -8,9 +8,7 @@ namespace A3D.Library.Repositories.EntityFramework
     {
         public ActivityInstanceRepository(ApplicationDbContext context)
             : base(context)
-        {
-
-        }
+        { }
 
         public IQueryable<ActivityInstance> GetByActivityId(int activityId)
         {

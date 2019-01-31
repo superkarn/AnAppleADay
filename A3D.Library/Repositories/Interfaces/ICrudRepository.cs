@@ -1,9 +1,8 @@
 ﻿using A3D.Library.Models;
-using System.Linq;
 
 namespace A3D.Library.Repositories.Interfaces
 {
-    public interface IWithIdRepository<TEntity> where TEntity : BaseModel
+    public interface ICrudRepository<TEntity> where TEntity : BaseWithIdModel
     {
         int Create(TEntity item);
         void DeleteById(int id);

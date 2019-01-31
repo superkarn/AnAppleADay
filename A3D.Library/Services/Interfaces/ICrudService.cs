@@ -2,11 +2,11 @@
 
 namespace A3D.Library.Services.Interfaces
 {
-    public interface ICrudService<T> where T : BaseModel
+    public interface ICrudService<TEntity> where TEntity : BaseWithIdModel
     {
-        int Create(T item);
-        T GetById(int id);
-        void Update(T item);
+        int Create(TEntity item);
         void DeleteById(int id);
+        TEntity GetById(int id);
+        void Update(TEntity item);
     }
 }

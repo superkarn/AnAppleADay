@@ -6,7 +6,6 @@ namespace A3D.Library.Repositories.EntityFramework.LookUp
     {
         public ActivityPrivacyRepository(ApplicationDbContext context)
             : base(context)
-        {
-        }
+        { }
     }
 }

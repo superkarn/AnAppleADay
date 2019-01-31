@@ -25,9 +25,9 @@ namespace A3D.Library.Services.LookUp
         {
             return new Dictionary<string, IEnumerable<BaseLookUpModel>>
             {
-                { "ActivityPrivacy", this.activityPrivacyRepository.GetAll() },
-                { "ActivityStatus", this.activityStatusRepository.GetAll() },
-                { "NotificationType",  this.notificationTypeRepository.GetAll() }
+                { "ActivityPrivacies", this.activityPrivacyRepository.GetAll() },
+                { "ActivityStatuses", this.activityStatusRepository.GetAll() },
+                { "NotificationTypes",  this.notificationTypeRepository.GetAll() }
             };
         }
     }

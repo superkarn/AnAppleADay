@@ -8,9 +8,7 @@ namespace A3D.Library.Repositories.EntityFramework
     {
         public ActivityRepository(ApplicationDbContext context)
             : base(context)
-        {
-
-        }
+        { }
 
         public IQueryable<Activity> GetByCreatorId(int creatorId)
         {

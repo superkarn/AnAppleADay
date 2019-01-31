@@ -1,18 +1,13 @@
 ﻿using A3D.Library.Models;
 using A3D.Library.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace A3D.Library.Repositories.EntityFramework
 {
-    public abstract class BaseWithIdRepository<TEntity> : IWithIdRepository<TEntity> where TEntity : BaseWithIdModel, new()
+    public abstract class BaseWithIdRepository<TEntity> : BaseRepository<TEntity>, ICrudRepository<TEntity> where TEntity : BaseWithIdModel, new()
     {
-        protected readonly ApplicationDbContext Context;
-        protected readonly DbSet<TEntity> DbSet;
-
         public BaseWithIdRepository(ApplicationDbContext context)
-        {
-        }
+            : base(context)
+        { }
 
         public virtual int Create(TEntity item)
         {

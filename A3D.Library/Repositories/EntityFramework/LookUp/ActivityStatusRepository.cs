@@ -6,7 +6,6 @@ namespace A3D.Library.Repositories.EntityFramework.LookUp
     {
         public ActivityStatusRepository(ApplicationDbContext context)
             : base(context)
-        {
-        }
+        { }
     }
 }
