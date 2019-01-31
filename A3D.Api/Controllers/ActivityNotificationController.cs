@@ -21,23 +21,32 @@ namespace A3D.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ActivityNotification>> Get(int userId, int activityId)
         {
-            return this.activityNotificationService.GetByActivityId(activityId).ToList();
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            return this.activityNotificationService.GetByActivityId(context, activityId).ToList();
         }
 
         // GET rest/users/{userId}/activities/{activityId}/notifications/notificationTypes/5
         [HttpGet("notificationTypes/{notificationTypeId}")]
         public ActionResult<ActivityNotification> Get(int userId, int activityId, int notificationTypeId)
         {
-            return this.activityNotificationService.GetByKey(activityId, notificationTypeId);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            return this.activityNotificationService.GetByKey(context, activityId, notificationTypeId);
         }
 
         // POST rest/users/{userId}/activities/{activityId}/notifications
         [HttpPost]
         public ActionResult Post(int userId, int activityId, [FromBody] ActivityNotification value)
         {
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
             try
             {
-                this.activityNotificationService.Create(value);
+                this.activityNotificationService.Create(context, value);
                 return Ok();
             }
             catch
@@ -51,14 +60,20 @@ namespace A3D.Api.Controllers
         [HttpPut("notificationTypes/{notificationTypeId}")]
         public void Put(int userId, int activityId, int notificationTypeId, [FromBody] ActivityNotification value)
         {
-            this.activityNotificationService.Update(value);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            this.activityNotificationService.Update(context, value);
         }
 
         // DELETE rest/users/{userId}/activities/{activityId}/notifications/notificationTypes/5
         [HttpDelete("notificationTypes/{notificationTypeId}")]
         public void Delete(int userId, int activityId, int notificationTypeId)
         {
-            this.activityNotificationService.DeleteByKey(activityId, notificationTypeId);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            this.activityNotificationService.DeleteByKey(context, activityId, notificationTypeId);
         }
     }
 }

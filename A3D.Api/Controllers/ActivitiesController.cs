@@ -21,25 +21,32 @@ namespace A3D.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Activity>> Get(int userId)
         {
-            return this.activityService.GetByCreatorId(userId).ToList();
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            return this.activityService.GetByCreatorId(context, userId).ToList();
         }
 
         // GET rest/users/{userId}/activities/5
         [HttpGet("{id}")]
         public ActionResult<Activity> Get(int userId, int id)
         {
-            // TODO add logic to check if userId has permission
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
 
-            return this.activityService.GetById(id);
+            return this.activityService.GetById(context, id);
         }
 
         // POST rest/users/{userId}/activities
         [HttpPost]
         public ActionResult<int> Post(int userId, [FromBody] Activity value)
         {
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
             try
             {
-                return this.activityService.Create(value);
+                return this.activityService.Create(context, value);
             }
             catch
             {
@@ -52,14 +59,20 @@ namespace A3D.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int userId, int id, [FromBody] Activity value)
         {
-            this.activityService.Update(value);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            this.activityService.Update(context, value);
         }
 
         // DELETE rest/users/{userId}/activities/5
         [HttpDelete("{id}")]
         public void Delete(int userId, int id)
         {
-            this.activityService.DeleteById(id);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            this.activityService.DeleteById(context, id);
         }
     }
 }

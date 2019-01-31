@@ -16,12 +16,12 @@ namespace A3D.Library.Services
             this.activityInstanceRepository = activityInstanceRepository;
         }
 
-        public int Create(ActivityInstance item)
+        public int Create(ApplicationContext context, ActivityInstance item)
         {
             return this.activityInstanceRepository.Create(item);
         }
 
-        public void DeleteById(int id)
+        public void DeleteById(ApplicationContext context, int id)
         {
             try
             {
@@ -39,17 +39,17 @@ namespace A3D.Library.Services
             }
         }
 
-        public ActivityInstance GetById(int id)
+        public ActivityInstance GetById(ApplicationContext context, int id)
         {
             return this.activityInstanceRepository.GetById(id);
         }
 
-        public IEnumerable<ActivityInstance> GetByActivityId(int activityId)
+        public IEnumerable<ActivityInstance> GetByActivityId(ApplicationContext context, int activityId)
         {
             return this.activityInstanceRepository.GetByActivityId(activityId);
         }
 
-        public void Update(ActivityInstance item)
+        public void Update(ApplicationContext context, ActivityInstance item)
         {
             var existingItem = this.activityInstanceRepository.GetById(item.Id);
 

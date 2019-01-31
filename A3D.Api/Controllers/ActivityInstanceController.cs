@@ -21,25 +21,32 @@ namespace A3D.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ActivityInstance>> Get(int userId, int activityId)
         {
-            return this.activityInstanceService.GetByActivityId(activityId).ToList();
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            return this.activityInstanceService.GetByActivityId(context, activityId).ToList();
         }
 
         // GET rest/users/{userId}/activities/{activityId}/instances/5
         [HttpGet("{id}")]
         public ActionResult<ActivityInstance> Get(int userId, int activityId, int id)
         {
-            // TODO add logic to check if userId has access to this Activity
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
 
-            return this.activityInstanceService.GetById(id);
+            return this.activityInstanceService.GetById(context, id);
         }
 
         // POST rest/users/{userId}/activities/{activityId}/instances
         [HttpPost]
         public ActionResult<int> Post(int userId, int activityId, [FromBody] ActivityInstance value)
         {
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
             try
             {
-                return this.activityInstanceService.Create(value);
+                return this.activityInstanceService.Create(context, value);
             }
             catch
             {
@@ -52,14 +59,20 @@ namespace A3D.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int userId, int activityId, int id, [FromBody] ActivityInstance value)
         {
-            this.activityInstanceService.Update(value);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            this.activityInstanceService.Update(context, value);
         }
 
         // DELETE rest/users/{userId}/activities/{activityId}/instances/5
         [HttpDelete("{id}")]
         public void Delete(int userId, int activityId, int id)
         {
-            this.activityInstanceService.DeleteById(id);
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = userId } };
+
+            this.activityInstanceService.DeleteById(context, id);
         }
     }
 }

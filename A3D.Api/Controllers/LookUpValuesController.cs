@@ -20,7 +20,10 @@ namespace A3D.Api.Controllers
         [HttpGet]
         public ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>> Get()
         {
-            return new ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>>(this.lookUpService.GetAll());
+            // TODO replace this with the current user
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = 1 } };
+
+            return new ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>>(this.lookUpService.GetAll(context));
         }
     }
 }

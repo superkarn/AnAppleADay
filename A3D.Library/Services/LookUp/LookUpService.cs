@@ -21,7 +21,7 @@ namespace A3D.Library.Services.LookUp
             this.notificationTypeRepository = notificationTypeRepository;
         }
 
-        public IDictionary<string, IEnumerable<BaseLookUpModel>> GetAll()
+        public IDictionary<string, IEnumerable<BaseLookUpModel>> GetAll(ApplicationContext context)
         {
             return new Dictionary<string, IEnumerable<BaseLookUpModel>>
             {

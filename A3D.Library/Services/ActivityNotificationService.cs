@@ -15,27 +15,27 @@ namespace A3D.Library.Services
             this.activityNotificationRepository = activityNotificationRepository;
         }
 
-        public void Create(ActivityNotification item)
+        public void Create(ApplicationContext context, ActivityNotification item)
         {
             this.activityNotificationRepository.Create(item);
         }
 
-        public void DeleteByKey(int activityId, int notificationTypeId)
+        public void DeleteByKey(ApplicationContext context, int activityId, int notificationTypeId)
         {
             this.activityNotificationRepository.DeleteByKey(activityId, notificationTypeId);
         }
 
-        public IEnumerable<ActivityNotification> GetByActivityId(int activityId)
+        public IEnumerable<ActivityNotification> GetByActivityId(ApplicationContext context, int activityId)
         {
             return this.activityNotificationRepository.GetByActivityId(activityId);
         }
 
-        public ActivityNotification GetByKey(int activityId, int notificationTypeId)
+        public ActivityNotification GetByKey(ApplicationContext context, int activityId, int notificationTypeId)
         {
             return this.activityNotificationRepository.GetByKey(activityId, notificationTypeId);
         }
 
-        public void Update(ActivityNotification item)
+        public void Update(ApplicationContext context, ActivityNotification item)
         {
             var existingItem = this.activityNotificationRepository.GetByKey(item.ActivityId, item.NotificationTypeId);
 

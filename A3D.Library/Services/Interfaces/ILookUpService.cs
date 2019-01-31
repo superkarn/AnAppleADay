@@ -9,6 +9,6 @@ namespace A3D.Library.Services.Interfaces
         /// Returns a dictionary of all {lookup-name, list-of-lookup-values}
         /// </summary>
         /// <returns></returns>
-        IDictionary<string, IEnumerable<BaseLookUpModel>> GetAll();
+        IDictionary<string, IEnumerable<BaseLookUpModel>> GetAll(ApplicationContext context);
     }
 }
