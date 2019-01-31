@@ -1,4 +1,5 @@
 ﻿using A3D.Library.Models;
+using A3D.Library.Models.LookUp;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -10,6 +11,11 @@ namespace A3D.Library.Repositories.EntityFramework
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityInstance> ActivityInstances { get; set; }
+        public DbSet<ActivityNotification> ActivityNotifications { get; set; }
+
+        public DbSet<ActivityPrivacy> ActivityPrivacies { get; set; }
+        public DbSet<ActivityStatus> ActivityStatuses { get; set; }
+        public DbSet<NotificationType> NotificationTypes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -19,7 +25,7 @@ namespace A3D.Library.Repositories.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Data tables
-            modelBuilder.Entity<Activity>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<Activity>().HasIndex(x => new { x.CreatorId, x.Name }).IsUnique();
             modelBuilder.Entity<Activity>().Property(x => x.CreatorId).IsRequired();
             modelBuilder.Entity<Activity>().Property(x => x.IsActive).HasDefaultValue(true); // C# property is also defaulted to true
             modelBuilder.Entity<Activity>().Property(x => x.PrivacyId).HasDefaultValue(1);
@@ -54,9 +60,6 @@ namespace A3D.Library.Repositories.EntityFramework
             modelBuilder.Entity<ActivityPrivacy>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<ActivityPrivacy>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
 
-            modelBuilder.Entity<ActivityState>().HasIndex(x => x.Name).IsUnique();
-            modelBuilder.Entity<ActivityState>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
-
             modelBuilder.Entity<ActivityStatus>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<ActivityStatus>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
 
@@ -79,9 +82,6 @@ namespace A3D.Library.Repositories.EntityFramework
             #region Seeding look up values.  Required by the application.
             modelBuilder.Entity<ActivityPrivacy>().HasData(new ActivityPrivacy { Id = 1, Name = "Private", Description = "Can be viewed only by owner" });
             modelBuilder.Entity<ActivityPrivacy>().HasData(new ActivityPrivacy { Id = 2, Name = "Public", Description = "Can be viewed by anybody" });
-            
-            modelBuilder.Entity<ActivityState>().HasData(new ActivityState { Id = 1, Name = "Active", Description = "Activity is active.  New ActivityInstances can be added.  Notifications will be sent on schedule." });
-            modelBuilder.Entity<ActivityState>().HasData(new ActivityState { Id = 2, Name = "Inactive", Description = "Activity is not active.  New ActivityInstances cannot be added.  Notifications will not be sent." });
 
             modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 1, Name = "Skipped", Description = "Activity Instance was skipped (not completed)" });
             modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 2, Name = "Partial", Description = "Activity Instance was partially completed" });
@@ -100,6 +100,8 @@ namespace A3D.Library.Repositories.EntityFramework
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 1, CreatorId = 1, Name = "Test Activity" });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 2, CreatorId = 1, Name = "Exercise", PrivacyId = 2 });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 3, CreatorId = 1, Name = "Read every day", ValueUnit = "Pages" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 4, CreatorId = 2, Name = "Test Activity" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 5, CreatorId = 2, Name = "More test activities", PrivacyId = 2, ValueUnit = "Count" });
 
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 1, ActivityId = 1, CreatorId = 1, Value = "3" });
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 2, ActivityId = 1, CreatorId = 1, Value = "1", StatusId = 2 });

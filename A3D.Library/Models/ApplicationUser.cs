@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace A3D.Library.Models
 {
-    public class ApplicationUser
+    public class ApplicationUser : BaseWithIdModel
     {
-        public int Id { get; set; }
         public string Username { get; set; }
         public bool IsActive { get; set; } = true;
         public string Email { get; set; }

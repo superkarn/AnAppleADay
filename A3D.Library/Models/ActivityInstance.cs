@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using A3D.Library.Models.LookUp;
+using System;
 
 namespace A3D.Library.Models
 {
-    public class ActivityInstance
+    public class ActivityInstance : BaseWithIdModel
     {
-        public int Id { get; set; }
-
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }
 

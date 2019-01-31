@@ -1,9 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using A3D.Library.Models.LookUp;
 
 namespace A3D.Library.Models
 {
-    public class ActivityNotification
+    public class ActivityNotification : BaseModel
     {
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }
