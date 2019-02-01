@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace A3D.Api.Controllers
 {
+    [Authorize]
     [Route("rest/lookUpValues")]
     [ApiController]
     public class LookUpValuesController : ControllerBase

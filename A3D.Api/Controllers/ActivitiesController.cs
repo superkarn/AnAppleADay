@@ -2,10 +2,12 @@
 using System.Linq;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace A3D.Api.Controllers
 {
+    [Authorize]
     [Route("rest/users/{userId}/activities")]
     [ApiController]
     public class ActivitiesController : ControllerBase

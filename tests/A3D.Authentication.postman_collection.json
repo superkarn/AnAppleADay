@@ -1,0 +1,82 @@
+{
+	"info": {
+		"_postman_id": "1a99d675-5a9b-412f-9759-3fa98fb047d7",
+		"name": "A3D.Authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Jwt-Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ username: \"karn\", password: \"password\" }"
+				},
+				"url": {
+					"raw": "https://{{host}}:{{port}}/jwt/authenticate",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jwt",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Jwt-Test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1NDg5OTYyOTIsImV4cCI6MTU0OTA4MjY5MiwiaWF0IjoxNTQ4OTk2MjkyLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzOSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzM5In0.7GyfEPGcTY9a96Ibobdt7diDhsQrnQAqWwSGSYCUowrGIhgdq7v_BkGEHiL6btKU_Lvl9aXhgDnJKMDCqLE95w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{host}}:{{port}}/jwt/test",
+					"protocol": "https",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"jwt",
+						"test"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "13b7c972-1f76-4406-8e82-9daf51c83345",
-		"name": "A3D",
+		"name": "A3D.Api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -11,6 +11,16 @@
 				{
 					"name": "Activities-GetByCreatorId",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -37,6 +47,16 @@
 				{
 					"name": "Activities-GetById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -64,6 +84,16 @@
 				{
 					"name": "Activities-DeleteById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -91,6 +121,16 @@
 				{
 					"name": "Activities-Create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -123,6 +163,16 @@
 				{
 					"name": "Activities-Update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -161,6 +211,16 @@
 				{
 					"name": "ActivityNotifications-GetByActivityId",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -190,6 +250,16 @@
 				{
 					"name": "ActivityNotifications-GetByKey",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -220,6 +290,16 @@
 				{
 					"name": "ActivityNotifications-DeleteByKey",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -250,6 +330,16 @@
 				{
 					"name": "ActivityNotifications-Create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -260,7 +350,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ ActivityId: 2, NotificationTypeId: 2, IsEnabled: true, Recipient: \"111-111-1111\" }"
+							"raw": "{ ActivityId: 3, NotificationTypeId: 2, IsEnabled: true, Recipient: \"111-111-1111\" }"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/rest/users/{{userId}}/activities/{{activityId}}/notifications/",
@@ -285,6 +375,16 @@
 				{
 					"name": "ActivityNotifications-Update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -326,6 +426,16 @@
 				{
 					"name": "ActivityInstances-GetByCreatorId",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -355,6 +465,16 @@
 				{
 					"name": "ActivityInstances-GetById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -384,6 +504,16 @@
 				{
 					"name": "ActivityInstances-DeleteById",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -413,6 +543,16 @@
 				{
 					"name": "ActivityInstances-Create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -448,6 +588,16 @@
 				{
 					"name": "ActivityInstances-Update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwtToken}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -485,6 +635,16 @@
 		{
 			"name": "LookUpValues-GetAll",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{jwtToken}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"body": {
