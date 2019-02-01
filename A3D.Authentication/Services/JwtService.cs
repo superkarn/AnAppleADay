@@ -33,6 +33,11 @@ namespace A3D.Authentication.Services
             // users hardcoded for simplicity, store in a db with hashed passwords in production applications
             var user = this.users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
+            if (user == null)
+            {
+                return user;
+            }
+
             //// authentication successful so generate jwt token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.jwtAppSettings.Key));
