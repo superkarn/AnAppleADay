@@ -1,22 +1,16 @@
-﻿using A3D.Library.Models.LookUp;
-using A3D.Library.Repositories.EntityFramework;
-using A3D.Library.Repositories.EntityFramework.LookUp;
-using A3D.Library.Repositories.Interfaces;
-using A3D.Library.Services;
-using A3D.Library.Services.Interfaces;
-using A3D.Library.Services.LookUp;
+﻿using A3D.Authentication.Models;
+using A3D.Authentication.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 
-namespace A3D.Api
+namespace A3D.Authentication
 {
     public class Startup
     {
@@ -30,7 +24,11 @@ namespace A3D.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            // Load JWT settings from config
+            var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
+            services.AddSingleton<JwtAppSettings>(jwtAppSettings);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -41,9 +39,9 @@ namespace A3D.Api
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-                        ValidIssuer = Configuration["Jwt:Issuer"],
-                        ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                        ValidIssuer = jwtAppSettings.Issuer,
+                        ValidAudience = jwtAppSettings.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettings.Key)),
                         ClockSkew = TimeSpan.Zero
                     };
                 });
@@ -59,26 +57,7 @@ namespace A3D.Api
                         .Build());
             });
 
-            var connectionString = Microsoft
-                .Extensions
-                .Configuration
-                .ConfigurationExtensions
-                .GetConnectionString(this.Configuration, "DefaultConnection");
-
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-
-            services.AddScoped<IActivityService, ActivityService>();
-            services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
-            services.AddScoped<IActivityNotificationService, ActivityNotificationService>();
-
-            services.AddScoped<IActivityRepository, ActivityRepository>();
-            services.AddScoped<IActivityInstanceRepository, ActivityInstanceRepository>();
-            services.AddScoped<IActivityNotificationRepository, ActivityNotificationRepository>();
-
-            services.AddScoped<ILookUpRepository<ActivityPrivacy>, ActivityPrivacyRepository>();
-            services.AddScoped<ILookUpRepository<ActivityStatus>, ActivityStatusRepository>();
-            services.AddScoped<ILookUpRepository<NotificationType>, NotificationTypeRepository>();
-            services.AddScoped<ILookUpService, LookUpService>();
+            services.AddScoped<IJwtService, JwtService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -90,6 +69,7 @@ namespace A3D.Api
             }
             else
             {
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
