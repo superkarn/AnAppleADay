@@ -46,7 +46,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1NDg5OTYyOTIsImV4cCI6MTU0OTA4MjY5MiwiaWF0IjoxNTQ4OTk2MjkyLCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDMzOSIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0MzM5In0.7GyfEPGcTY9a96Ibobdt7diDhsQrnQAqWwSGSYCUowrGIhgdq7v_BkGEHiL6btKU_Lvl9aXhgDnJKMDCqLE95w",
+							"value": "{{jwtToken}}",
 							"type": "string"
 						}
 					]
