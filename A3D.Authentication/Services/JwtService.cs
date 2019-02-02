@@ -46,7 +46,7 @@ namespace A3D.Authentication.Services
                 Issuer = this.jwtAppSettings.Issuer,
                 Audience = this.jwtAppSettings.Audience,
                 Subject = new ClaimsIdentity(new Claim[] { new Claim(ClaimTypes.Name, user.Id.ToString()) }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddSeconds(this.jwtAppSettings.ExpirationTime),
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);

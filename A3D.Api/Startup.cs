@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using A3D.Library.Models.LookUp;
+using A3D.Library.Repositories.EntityFramework;
+using A3D.Library.Repositories.EntityFramework.LookUp;
+using A3D.Library.Repositories.Interfaces;
+using A3D.Library.Services;
+using A3D.Library.Services.Interfaces;
+using A3D.Library.Services.LookUp;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-using A3D.Library.Models.LookUp;
-using A3D.Library.Repositories.EntityFramework;
-using A3D.Library.Repositories.EntityFramework.LookUp;
-using A3D.Library.Repositories.Interfaces;
-using A3D.Library.Services.Interfaces;
-using A3D.Library.Services;
-using A3D.Library.Services.LookUp;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
 
 namespace A3D.Api
@@ -43,7 +43,8 @@ namespace A3D.Api
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = Configuration["Jwt:Issuer"],
                         ValidAudience = Configuration["Jwt:Issuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])),
+                        ClockSkew = TimeSpan.Zero
                     };
                 });
 
