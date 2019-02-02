@@ -48,6 +48,17 @@ namespace A3D.Api
                     };
                 });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .AllowAnyOrigin() // TODO replace this with WithOrigins()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .Build());
+            });
+
             var connectionString = Microsoft
                 .Extensions
                 .Configuration
@@ -81,6 +92,11 @@ namespace A3D.Api
             {
                 app.UseHsts();
             }
+
+            // https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.2#enabling-cors-with-middleware
+            // CORS Middleware must precede any defined endpoints in your app where you want to support cross-origin requests 
+            // (for example, before the call to UseMvc for MVC/Razor Pages Middleware).
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseHttpsRedirection();

@@ -46,18 +46,18 @@ namespace A3D.Authentication
                     };
                 });
 
-            services.AddScoped<IJwtService, JwtService>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                        .AllowAnyOrigin() // TODO replace this with WithOrigins()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .Build());
+            });
 
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("CorsPolicy",
-            //        builder => builder
-            //            .AllowAnyOrigin()
-            //            .AllowAnyMethod()
-            //            .AllowAnyHeader()
-            //            .AllowCredentials()
-            //            .Build());
-            //});
+            services.AddScoped<IJwtService, JwtService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,10 +73,14 @@ namespace A3D.Authentication
                 app.UseHsts();
             }
 
+            // https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.2#enabling-cors-with-middleware
+            // CORS Middleware must precede any defined endpoints in your app where you want to support cross-origin requests 
+            // (for example, before the call to UseMvc for MVC/Razor Pages Middleware).
+            app.UseCors("CorsPolicy");
+
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
-            //app.UseCors("CorsPolicy");
         }
     }
 }
