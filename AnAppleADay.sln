@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Library", "A3D.Library\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Api", "A3D.Api\A3D.Api.csproj", "{CC0140A6-7CD2-406F-9113-5DF62BC22C73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3D.Authentication", "A3D.Authentication\A3D.Authentication.csproj", "{B17E80C7-FE67-453C-9391-84A3208F26E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3D.Authentication", "A3D.Authentication\A3D.Authentication.csproj", "{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{CC0140A6-7CD2-406F-9113-5DF62BC22C73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC0140A6-7CD2-406F-9113-5DF62BC22C73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC0140A6-7CD2-406F-9113-5DF62BC22C73}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B17E80C7-FE67-453C-9391-84A3208F26E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B17E80C7-FE67-453C-9391-84A3208F26E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B17E80C7-FE67-453C-9391-84A3208F26E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B17E80C7-FE67-453C-9391-84A3208F26E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
