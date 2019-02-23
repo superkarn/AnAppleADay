@@ -50,11 +50,11 @@ namespace A3D.Authentication
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            // Load JWT settings from config
+            #region JWT
             var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
             services.AddSingleton<JwtAppSettings>(jwtAppSettings);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication()
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -82,6 +82,7 @@ namespace A3D.Authentication
             });
 
             services.AddScoped<IJwtService, JwtService>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
