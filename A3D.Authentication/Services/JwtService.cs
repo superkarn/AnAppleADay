@@ -30,6 +30,7 @@ namespace A3D.Authentication.Services
 
         public User Authenticate(string username, string password)
         {
+            // TODO authenticate credential against the database
             // users hardcoded for simplicity, store in a db with hashed passwords in production applications
             var user = this.users.SingleOrDefault(x => x.Username == username && x.Password == password);
 
