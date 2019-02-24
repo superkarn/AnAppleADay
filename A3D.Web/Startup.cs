@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using A3D.Library.Configs;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +33,15 @@ namespace A3D.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(this.Configuration.GetSection("DataProtection")["FilePath"]))
+                .SetApplicationName(ApplicationConfigurations.DATA_PRODUCTION_APPLICATION_NAME);
+
+            services.AddAuthentication(ApplicationConfigurations.AUTHENTICATION_SCHEME)
+                .AddCookie(ApplicationConfigurations.AUTHENTICATION_SCHEME, options =>
+                {
+                    options.Cookie.Name = ApplicationConfigurations.COOKIE_NAME;
+                });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

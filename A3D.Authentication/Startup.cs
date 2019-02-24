@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using A3D.Authentication.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
+using A3D.Library.Configs;
 
 namespace A3D.Authentication
 {
@@ -47,10 +50,19 @@ namespace A3D.Authentication
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // https://docs.microsoft.com/en-us/aspnet/core/security/cookie-sharing?view=aspnetcore-2.2
+            // Need the following to be able to share auth cookies between applications
+            services.AddDataProtection()
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(this.Configuration.GetSection("DataProtection")["FilePath"]))
+                .SetApplicationName(ApplicationConfigurations.DATA_PRODUCTION_APPLICATION_NAME);
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.Name = ApplicationConfigurations.COOKIE_NAME;
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            #region JWT
             var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
             services.AddSingleton<JwtAppSettings>(jwtAppSettings);
 
@@ -70,6 +82,7 @@ namespace A3D.Authentication
                     };
                 });
 
+            // Needed so JWT can work
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -82,7 +95,6 @@ namespace A3D.Authentication
             });
 
             services.AddScoped<IJwtService, JwtService>();
-            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
