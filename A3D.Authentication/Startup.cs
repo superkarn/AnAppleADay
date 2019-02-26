@@ -1,26 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using A3D.Authentication.Data;
+using A3D.Authentication.Models;
+using A3D.Authentication.Services;
+using A3D.Library.Global;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using A3D.Authentication.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using A3D.Authentication.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Text;
-using A3D.Authentication.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.DataProtection;
-using A3D.Library.Configs;
 
 namespace A3D.Authentication
 {
@@ -36,6 +30,11 @@ namespace A3D.Authentication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set up some global configs
+            Application.Api.BaseUrl = this.Configuration.GetSection("Applications")["Api:BaseUrl"];
+            Application.Authentication.BaseUrl = this.Configuration.GetSection("Applications")["Authentication:BaseUrl"];
+            Application.Web.BaseUrl = this.Configuration.GetSection("Applications")["Web:BaseUrl"];
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -53,12 +52,12 @@ namespace A3D.Authentication
             // https://docs.microsoft.com/en-us/aspnet/core/security/cookie-sharing?view=aspnetcore-2.2
             // Need the following to be able to share auth cookies between applications
             services.AddDataProtection()
-                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(this.Configuration.GetSection("DataProtection")["FilePath"]))
-                .SetApplicationName(ApplicationConfigurations.DATA_PRODUCTION_APPLICATION_NAME);
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(this.Configuration.GetSection("Authentication")["DataProtection:FilePath"]))
+                .SetApplicationName(AuthenticationConfigs.APPLICATION_NAME);
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.Name = ApplicationConfigurations.COOKIE_NAME;
+                options.Cookie.Name = AuthenticationConfigs.COOKIE_NAME;
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

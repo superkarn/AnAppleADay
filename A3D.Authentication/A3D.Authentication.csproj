@@ -15,11 +15,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-
-  <ItemGroup>
     <ProjectReference Include="..\A3D.Library\A3D.Library.csproj" />
   </ItemGroup>
 

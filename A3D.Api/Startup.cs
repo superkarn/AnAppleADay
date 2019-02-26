@@ -1,4 +1,5 @@
-﻿using A3D.Library.Models.LookUp;
+﻿using A3D.Library.Global;
+using A3D.Library.Models.LookUp;
 using A3D.Library.Repositories.EntityFramework;
 using A3D.Library.Repositories.EntityFramework.LookUp;
 using A3D.Library.Repositories.Interfaces;
@@ -30,6 +31,11 @@ namespace A3D.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set up some global configs
+            Application.Api.BaseUrl = this.Configuration.GetSection("Applications")["Api:BaseUrl"];
+            Application.Authentication.BaseUrl = this.Configuration.GetSection("Applications")["Authentication:BaseUrl"];
+            Application.Web.BaseUrl = this.Configuration.GetSection("Applications")["Web:BaseUrl"];
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

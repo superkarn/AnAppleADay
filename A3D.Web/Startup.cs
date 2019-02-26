@@ -1,16 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using A3D.Library.Configs;
+using A3D.Library.Global;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace A3D.Web
 {
@@ -26,6 +24,11 @@ namespace A3D.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set up some global configs
+            Application.Api.BaseUrl = this.Configuration.GetSection("Applications")["Api:BaseUrl"];
+            Application.Authentication.BaseUrl = this.Configuration.GetSection("Applications")["Authentication:BaseUrl"];
+            Application.Web.BaseUrl = this.Configuration.GetSection("Applications")["Web:BaseUrl"];
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -34,13 +37,25 @@ namespace A3D.Web
             });
 
             services.AddDataProtection()
-                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(this.Configuration.GetSection("DataProtection")["FilePath"]))
-                .SetApplicationName(ApplicationConfigurations.DATA_PRODUCTION_APPLICATION_NAME);
+                .PersistKeysToFileSystem(new System.IO.DirectoryInfo(this.Configuration.GetSection("Authentication")["DataProtection:FilePath"]))
+                .SetApplicationName(AuthenticationConfigs.APPLICATION_NAME);
 
-            services.AddAuthentication(ApplicationConfigurations.AUTHENTICATION_SCHEME)
-                .AddCookie(ApplicationConfigurations.AUTHENTICATION_SCHEME, options =>
+            services.AddAuthentication(AuthenticationConfigs.AUTHENTICATION_SCHEME)
+                .AddCookie(AuthenticationConfigs.AUTHENTICATION_SCHEME, options =>
                 {
-                    options.Cookie.Name = ApplicationConfigurations.COOKIE_NAME;
+                    options.Cookie.Name = AuthenticationConfigs.COOKIE_NAME;
+                    options.Events = new CookieAuthenticationEvents()
+                    {
+                        OnRedirectToLogin = (context) =>
+                        {
+                            var returnUrl = WebUtility.UrlEncode($"/Redirect?url={context.Request.Path}&application=Web");
+
+                            context.HttpContext.Response.Redirect(
+                                Application.Authentication.BaseUrl
+                                + $"/Identity/Account/Login?ReturnUrl={returnUrl}");
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

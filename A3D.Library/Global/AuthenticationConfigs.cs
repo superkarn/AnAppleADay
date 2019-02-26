@@ -1,12 +1,12 @@
-﻿namespace A3D.Library.Configs
+﻿namespace A3D.Library.Global
 {
-    public class ApplicationConfigurations
+    public class AuthenticationConfigs
     {
         /// <summary>
         /// This is the application name used by DataProtection service.  All projects
         /// must use the same name so that the service can decrypt the data.
         /// </summary>
-        public const string DATA_PRODUCTION_APPLICATION_NAME = "An Apple A Day";
+        public const string APPLICATION_NAME = "An Apple A Day";
 
         /// <summary>
         /// This is the name of the cookies to be used between all the projects.
