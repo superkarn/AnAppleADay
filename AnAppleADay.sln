@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Library", "A3D.Library\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Api", "A3D.Api\A3D.Api.csproj", "{CC0140A6-7CD2-406F-9113-5DF62BC22C73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3D.Authentication", "A3D.Authentication\A3D.Authentication.csproj", "{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Authentication", "A3D.Authentication\A3D.Authentication.csproj", "{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3D.Web", "A3D.Web\A3D.Web.csproj", "{5D17931F-2023-4D12-AB4C-E01AFB39CC8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AF80826-8DF7-4F29-AC07-B2CC11E16F65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D17931F-2023-4D12-AB4C-E01AFB39CC8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D17931F-2023-4D12-AB4C-E01AFB39CC8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D17931F-2023-4D12-AB4C-E01AFB39CC8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D17931F-2023-4D12-AB4C-E01AFB39CC8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
