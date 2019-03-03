@@ -1,10 +1,12 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+@using A3D.Library.Global
+
+@* TODO add the <meta> redirect back once we've figured out how to log off from Web *@
+@*<meta http-equiv="refresh" content="0; url=@Application.Web.BaseUrl">*@
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>
+        If you are not auto-redirected, click <a href="@Application.Web.BaseUrl">here</a>
+        (<a href="@Application.Web.BaseUrl">@Application.Web.BaseUrl</a>).
+    </p>
 </div>
