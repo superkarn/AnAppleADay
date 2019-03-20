@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using A3D.Web.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using A3D.Library.Global;
 
 namespace A3D.Web
 {
@@ -28,6 +29,10 @@ namespace A3D.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set up some global configs
+            Application.Api.BaseUrl = this.Configuration.GetSection("Applications")["Api:BaseUrl"];
+            Application.Web.BaseUrl = this.Configuration.GetSection("Applications")["Web:BaseUrl"];
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
