@@ -25,6 +25,9 @@ namespace A3D.Library.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Make sure to call IdentityDbContext.OnModelCreating() so it can do its thing
+            base.OnModelCreating(modelBuilder);
+
             #region Data tables
             modelBuilder.Entity<Activity>().HasIndex(x => new { x.CreatorId, x.Name }).IsUnique();
             modelBuilder.Entity<Activity>().Property(x => x.CreatorId).IsRequired();
