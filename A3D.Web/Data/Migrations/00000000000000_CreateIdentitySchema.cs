@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace AnAppleADay.Data.Migrations
+namespace A3D.Web.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace AnAppleADay.Data
+namespace A3D.Web.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
