@@ -1,0 +1,22 @@
+﻿@page "/u/{username}/Activities"
+@model A3D.Web.Areas.Activities.Pages.List.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Activities</h1>
+    @foreach (var activity in Model.Activities)
+    {
+    <div>
+        <span>@activity.Name</span>
+        <span>@activity.Schedule</span>
+        <span>
+            [<a href="/u/@User.Identity.Name/Activities/@activity.Id">Edit</a>] 
+            [<a href="/u/@User.Identity.Name/Activities/@activity.Id/History">History</a>]
+        </span>
+    </div>
+    }
+</div>
+

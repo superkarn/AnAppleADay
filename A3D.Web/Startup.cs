@@ -14,6 +14,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using A3D.Library.Global;
 using A3D.Library.Data.Data;
+using A3D.Library.Data.Repositories.Interfaces;
+using A3D.Library.Data.Repositories.EntityFramework;
+using A3D.Library.Repositories.EntityFramework;
+using A3D.Library.Services.Interfaces;
+using A3D.Library.Services;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace A3D.Web
 {
@@ -40,15 +46,20 @@ namespace A3D.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddScoped<IActivityService, ActivityService>();
+            services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
+
+            services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddScoped<IActivityInstanceRepository, ActivityInstanceRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

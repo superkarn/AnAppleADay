@@ -97,17 +97,27 @@ namespace A3D.Library.Data.Data
             #endregion
 
             #region Seeding test values
-            var userId1 = "00000000-0000-0000-0000-000000000001";
+            var userId1 = "6761d1ea-06bb-4c3e-b24e-8a7865bf094b";
             var userId2 = "00000000-0000-0000-0000-000000000002";
             var userId3 = "00000000-0000-0000-0000-000000000003";
 
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId1, UserName = "karn", Email = "karn@example.com" });
+            // Password = Password1$
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser {
+                Id = userId1,
+                UserName = "superkarn@gmail.com",
+                NormalizedUserName = "SUPERKARN@GMAIL.COM",
+                Email = "superkarn@gmail.com",
+                NormalizedEmail = "SUPERKARN@GMAIL.COM",
+                PasswordHash = "AQAAAAEAACcQAAAAEKgE7GuPx6Xp3+6/itEA+GIYEVnxdMKCDMyuPFeXlH1sZiH1lZ+S2QO2fE2JYxOxpQ==",
+                SecurityStamp = "BF6DFMXSJX3USJURBYD3EWOANZ4SUDDL",
+                ConcurrencyStamp = "a9f508b7-ab66-4b2f-8d57-b73fd1ac898b"                
+            });
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId2, UserName = "test", Email = "test@example.com" });
             modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId3, UserName = "test2", Email = "test2@example.com" });
 
-            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 1, CreatorId = userId1, Name = "Test Activity" });
-            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 2, CreatorId = userId1, Name = "Exercise", PrivacyId = 2 });
-            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 3, CreatorId = userId1, Name = "Read every day", ValueUnit = "Pages" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 1, CreatorId = userId1, Name = "Test Activity", Description = "Test activity...", ValueUnit = "Units" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 2, CreatorId = userId1, Name = "Exercise", Description = "Exercise description", PrivacyId = 2, ValueUnit = "Minutes" });
+            modelBuilder.Entity<Activity>().HasData(new Activity { Id = 3, CreatorId = userId1, Name = "Read every day", Description = "Read read read", ValueUnit = "Pages" });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 4, CreatorId = userId2, Name = "Test Activity" });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 5, CreatorId = userId2, Name = "More test activities", PrivacyId = 2, ValueUnit = "Count" });
 

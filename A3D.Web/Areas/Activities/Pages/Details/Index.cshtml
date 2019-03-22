@@ -1,0 +1,12 @@
+﻿@page "/u/{username}/Activities/{activityId}"
+@model A3D.Web.Areas.Activities.Pages.Details.IndexModel
+@{
+    ViewData["Title"] = Model.Activity.Name;
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Activity.Name</h1>
+    <p>@Model.Activity.Description</p>
+</div>
+

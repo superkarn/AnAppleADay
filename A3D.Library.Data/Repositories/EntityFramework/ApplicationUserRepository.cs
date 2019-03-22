@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace A3D.Authentication.Repositories.EntityFramework
+namespace A3D.Library.Data.Repositories.EntityFramework
 {
     public class ApplicationUserRepository : IApplicationUserRepository
     {

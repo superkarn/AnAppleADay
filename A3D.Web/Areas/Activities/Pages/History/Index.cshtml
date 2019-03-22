@@ -1,0 +1,18 @@
+﻿@page "/u/{username}/Activities/{activityId}/History"
+@model A3D.Web.Areas.Activities.Pages.History.IndexModel
+@{
+    ViewData["Title"] = "Model.Activity.Name";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">@Model.Activity.Name (@Model.Activity.ValueUnit)</h1>
+    @foreach (var activityInstance in Model.ActivityInstances)
+    {
+        <div>
+            <span>@activityInstance.Value</span>
+            <span>@activityInstance.Notes</span>
+        </div>
+    }
+</div>
+

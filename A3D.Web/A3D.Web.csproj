@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
 
@@ -18,6 +19,11 @@
     <ProjectReference Include="..\A3D.Library.Global\A3D.Library.Global.csproj" />
     <ProjectReference Include="..\A3D.Library.Models\A3D.Library.Models.csproj" />
     <ProjectReference Include="..\A3D.Library.Services\A3D.Library.Services.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Activities\Pages\Instance\" />
   </ItemGroup>
 
 </Project>
