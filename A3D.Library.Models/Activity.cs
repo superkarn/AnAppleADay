@@ -6,7 +6,7 @@ namespace A3D.Library.Models
 {
     public class Activity : BaseWithIdModel
     {
-        public Guid CreatorId { get; set; }
+        public string CreatorId { get; set; }
         public ApplicationUser Creator { get; set; }
 
         public string Name { get; set; }

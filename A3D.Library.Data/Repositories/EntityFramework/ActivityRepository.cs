@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using A3D.Library.Data.Data;
 using A3D.Library.Models;
 using A3D.Library.Data.Repositories.Interfaces;
@@ -13,14 +12,9 @@ namespace A3D.Library.Repositories.EntityFramework
             : base(context)
         { }
 
-        public IQueryable<Activity> GetByCreatorId(Guid creatorId)
-        {
-            return this.DbSet.Where(x => x.CreatorId == creatorId);
-        }
-
         public IQueryable<Activity> GetByCreatorId(string creatorId)
         {
-            return this.DbSet.Where(x => x.CreatorId == Guid.Parse(creatorId));
+            return this.DbSet.Where(x => x.CreatorId == creatorId);
         }
     }
 }

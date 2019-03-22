@@ -53,8 +53,8 @@ namespace A3D.Library.Data.Data
             modelBuilder.Entity<ActivityNotification>().Property(x => x.IsEnabled).HasDefaultValue(true); // C# property is also defaulted to true
             modelBuilder.Entity<ActivityNotification>().Property(x => x.Recipient).IsRequired();
 
-            modelBuilder.Entity<ApplicationUser>().HasIndex(x => x.Username).IsUnique();
-            modelBuilder.Entity<ApplicationUser>().Property(x => x.Username).IsRequired();
+            modelBuilder.Entity<ApplicationUser>().HasIndex(x => x.UserName).IsUnique();
+            modelBuilder.Entity<ApplicationUser>().Property(x => x.UserName).IsRequired();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.IsActive).HasDefaultValue(true); // C# property is also defaulted to true
             modelBuilder.Entity<ApplicationUser>().Property(x => x.Email).IsRequired();
             modelBuilder.Entity<ApplicationUser>().Property(x => x.CreatedDate).HasDefaultValueSql("getutcdate()");
@@ -97,13 +97,13 @@ namespace A3D.Library.Data.Data
             #endregion
 
             #region Seeding test values
-            var userId1 = Guid.Parse("00000000-0000-0000-0000-000000000001");
-            var userId2 = Guid.Parse("00000000-0000-0000-0000-000000000002");
-            var userId3 = Guid.Parse("00000000-0000-0000-0000-000000000003");
+            var userId1 = "00000000-0000-0000-0000-000000000001";
+            var userId2 = "00000000-0000-0000-0000-000000000002";
+            var userId3 = "00000000-0000-0000-0000-000000000003";
 
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId1, Username = "karn", Email = "karn@example.com" });
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId2, Username = "test", Email = "test@example.com" });
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId3, Username = "test2", Email = "test2@example.com" });
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId1, UserName = "karn", Email = "karn@example.com" });
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId2, UserName = "test", Email = "test@example.com" });
+            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser { Id = userId3, UserName = "test2", Email = "test2@example.com" });
 
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 1, CreatorId = userId1, Name = "Test Activity" });
             modelBuilder.Entity<Activity>().HasData(new Activity { Id = 2, CreatorId = userId1, Name = "Exercise", PrivacyId = 2 });

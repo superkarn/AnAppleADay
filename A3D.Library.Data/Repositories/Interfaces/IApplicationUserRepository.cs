@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace A3D.Library.Data.Repositories.Interfaces
 {
-    public interface IIdentityUserRepository
+    public interface IApplicationUserRepository
     {
         IQueryable<IdentityUser> GetByUsername(string username);
     }

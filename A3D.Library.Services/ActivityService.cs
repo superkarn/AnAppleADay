@@ -11,9 +11,9 @@ namespace A3D.Library.Services
     public class ActivityService : IActivityService
     {
         private readonly IActivityRepository activityRepository;
-        private readonly IIdentityUserRepository identityUserRepository;
+        private readonly IApplicationUserRepository identityUserRepository;
 
-        public ActivityService(IActivityRepository activityRepository, IIdentityUserRepository identityUserRepository)
+        public ActivityService(IActivityRepository activityRepository, IApplicationUserRepository identityUserRepository)
         {
             this.activityRepository = activityRepository;
             this.identityUserRepository = identityUserRepository;
@@ -47,7 +47,7 @@ namespace A3D.Library.Services
             return this.activityRepository.GetById(id);
         }
 
-        public IEnumerable<Activity> GetByCreatorId(ApplicationContext context, Guid creatorId)
+        public IEnumerable<Activity> GetByCreatorId(ApplicationContext context, string creatorId)
         {
             return this.activityRepository.GetByCreatorId(creatorId);
         }

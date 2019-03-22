@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace A3D.Authentication.Repositories.EntityFramework
 {
-    public class IdentityUserRepository : IIdentityUserRepository
+    public class ApplicationUserRepository : IApplicationUserRepository
     {
         protected readonly IdentityDbContext Context;
         protected readonly DbSet<IdentityUser> DbSet;
 
-        public IdentityUserRepository(IdentityDbContext context)
+        public ApplicationUserRepository(IdentityDbContext context)
         {
             this.Context = context;
             this.DbSet = this.Context.Set<IdentityUser>();
