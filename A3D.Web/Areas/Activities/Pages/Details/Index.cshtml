@@ -6,6 +6,14 @@
 }
 
 <div class="text-center">
+    @* TODO refactor the breadcrumb into a partial view *@
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/u/@User.Identity.Name/Activities">List</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Details</li>
+        </ol>
+    </nav>
+
     <h1 class="display-4">@Model.Activity.Name</h1>
     <p>@Model.Activity.Description</p>
 </div>

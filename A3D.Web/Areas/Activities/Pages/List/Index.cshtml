@@ -6,17 +6,36 @@
 }
 
 <div class="text-center">
+    @* TODO refactor the breadcrumb into a partial view *@
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">List</li>
+        </ol>
+    </nav>
+
     <h1 class="display-4">Activities</h1>
+
+    <div class="form-inline">
+        <div class="form-group">
+            <input type="text" class="form-control" value="Activity Name" disabled="disabled">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" value="Schedule" disabled="disabled">
+        </div>
+    </div>
+
     @foreach (var activity in Model.Activities)
     {
-    <div>
-        <span>@activity.Name</span>
-        <span>@activity.Schedule</span>
-        <span>
-            [<a href="/u/@User.Identity.Name/Activities/@activity.Id">Edit</a>] 
-            [<a href="/u/@User.Identity.Name/Activities/@activity.Id/History">History</a>]
-        </span>
-    </div>
+        <div class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" id="activity_@(activity.Id)_name" placeholder="..." value="@activity.Name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="activity_@(activity.Id)_schedule" placeholder="No schedule set" value="@activity.Schedule">
+            </div>
+            <a href="/u/@User.Identity.Name/Activities/@activity.Id" class="btn btn-primary">Edit</a>
+            <a href="/u/@User.Identity.Name/Activities/@activity.Id/History" class="btn btn-primary">History</a>
+        </div>
     }
 </div>
 
