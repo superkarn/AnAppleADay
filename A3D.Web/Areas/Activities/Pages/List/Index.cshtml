@@ -28,10 +28,10 @@
     {
         <div class="form-inline">
             <div class="form-group">
-                <input type="text" class="form-control" id="activity_@(activity.Id)_name" placeholder="..." value="@activity.Name">
+                <input id="activity_@(activity.Id)_name" type="text" class="form-control" placeholder="..." value="@activity.Name" readonly="readonly" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" id="activity_@(activity.Id)_schedule" placeholder="No schedule set" value="@activity.Schedule">
+                <input id="activity_@(activity.Id)_schedule" type="text" class="form-control" placeholder="No schedule set" value="@activity.Schedule" readonly="readonly" />
             </div>
             <a href="/u/@User.Identity.Name/Activities/@activity.Id" class="btn btn-primary">Edit</a>
             <a href="/u/@User.Identity.Name/Activities/@activity.Id/History" class="btn btn-primary">History</a>
