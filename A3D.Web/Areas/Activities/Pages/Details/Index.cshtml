@@ -13,8 +13,73 @@
             <li class="breadcrumb-item active" aria-current="page">Details</li>
         </ol>
     </nav>
+        
+    <div class="container">
+        <div class="row">
+            <input id="activity_@(Model.Activity.Id)_name" type="text" class="form-control form-control-lg" placeholder="..." value="@Model.Activity.Name" />
+        </div>
+        
+        <div class="row ">
+            <div class="col-9">
+                <div class="input-group">
+                    <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Unit for the values of each Activity Instance">
+                        <span class="input-group-text" id="basic-addon1">Value Unit</span>
+                    </div>
+                    <input id="activity_@(Model.Activity.Id)_value_unit" type="text" class="form-control" placeholder="" value="@Model.Activity.ValueUnit" />
+                </div>
+                <textarea id="activity_@(Model.Activity.Id)_description" class="form-control">@Model.Activity.Description</textarea>
+            </div>
+            <div class="col-3">
+                <div class="row border border-dark m-2">
+                    Schedule: TBD
+                </div>
+                <div class="row border border-dark m-2">
+                    Privacy
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-outline-primary @(@Model.Activity?.PrivacyId == 1 ? "active" : "")">
+                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_1" autocomplete="off" @(Model.Activity?.PrivacyId == 1 ? "checked" : "")> Private
+                        </label>
+                        <label class="btn btn-outline-primary @(@Model.Activity?.PrivacyId == 2 ? "active" : "")">
+                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_2" autocomplete="off" @(Model.Activity?.PrivacyId == 2 ? "checked" : "")> Public
+                        </label>
+                    </div>
+                </div>
+                @*
+                <div class="row border border-dark m-2">
+                    Email
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        @{ 
+                            var emailNotification = Model.Activity.ActivityNotifications.FirstOrDefault(x => x.NotificationTypeId == 1);
+                            bool emailNotifcationIsEnabled = (bool)emailNotification?.IsEnabled;
+                        }
+                        <label class="btn btn-light @(emailNotifcationIsEnabled ? "active" : "")">
+                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_1_true" autocomplete="off" @(emailNotifcationIsEnabled ? "checked" : "")> On
+                        </label>
+                        <label class="btn btn-light" @(emailNotifcationIsEnabled ? "active" : "")>
+                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_1_false" autocomplete="off" @(emailNotifcationIsEnabled ? "checked" : "")> Off
+                        </label>
+                    </div>
+                </div>
+                <div class="row border border-dark m-2">
+                    SMS
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-light @(Model.Activity.PrivacyId == 1 ? "active" : "")">
+                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_2_true" autocomplete="off" checked> On
+                        </label>
+                        <label class="btn btn-light" @(Model.Activity.PrivacyId == 2 ? "active" : "")>
+                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_2_false" autocomplete="off"> Off
+                        </label>
+                    </div>
+                </div>
+                *@
+            </div>
+        </div>
 
-    <h1 class="display-4">@Model.Activity.Name</h1>
-    <p>@Model.Activity.Description</p>
+        <div>
+            <button class="btn btn-success">Save</button>
+            <a href="/u/@User.Identity.Name/Activities/@(Model.Activity.Id)/History" class="btn btn-primary">View History</a>
+            <button class="btn btn-primary">Archive</button>
+            <button class="btn btn-danger">Delete</button>
+        </div>
+    </div>
 </div>
-
