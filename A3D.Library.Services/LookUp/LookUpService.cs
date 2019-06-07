@@ -9,11 +9,11 @@ namespace A3D.Library.Services.LookUp
     public class LookUpService : ILookUpService
     {
         private readonly ILookUpRepository<ActivityPrivacy> activityPrivacyRepository;
-        private readonly ILookUpRepository<ActivityStatus> activityStatusRepository;
+        private readonly ILookUpRepository<ActivityInstanceStatus> activityStatusRepository;
         private readonly ILookUpRepository<NotificationType> notificationTypeRepository;
 
         public LookUpService(ILookUpRepository<ActivityPrivacy> activityPrivacyRepository,
-            ILookUpRepository<ActivityStatus> activityStatusRepository,
+            ILookUpRepository<ActivityInstanceStatus> activityStatusRepository,
             ILookUpRepository<NotificationType> notificationTypeRepository)
         {
             this.activityPrivacyRepository = activityPrivacyRepository;
