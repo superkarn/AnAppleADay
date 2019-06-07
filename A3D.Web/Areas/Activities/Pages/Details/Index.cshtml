@@ -19,8 +19,8 @@
             <input id="activity_@(Model.Activity.Id)_name" type="text" class="form-control form-control-lg" placeholder="..." value="@Model.Activity.Name" />
         </div>
         
-        <div class="row ">
-            <div class="col-9">
+        <div class="row">
+            <div class="col-9 border">
                 <div class="input-group">
                     <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Unit for the values of each Activity Instance">
                         <span class="input-group-text" id="basic-addon1">Value Unit</span>
@@ -29,49 +29,68 @@
                 </div>
                 <textarea id="activity_@(Model.Activity.Id)_description" class="form-control">@Model.Activity.Description</textarea>
             </div>
-            <div class="col-3">
-                <div class="row border border-dark m-2">
-                    Schedule: TBD
-                </div>
-                <div class="row border border-dark m-2">
-                    Privacy
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-outline-primary @(@Model.Activity?.PrivacyId == 1 ? "active" : "")">
-                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_1" autocomplete="off" @(Model.Activity?.PrivacyId == 1 ? "checked" : "")> Private
-                        </label>
-                        <label class="btn btn-outline-primary @(@Model.Activity?.PrivacyId == 2 ? "active" : "")">
-                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_2" autocomplete="off" @(Model.Activity?.PrivacyId == 2 ? "checked" : "")> Public
-                        </label>
+            <div class="col-3 border">
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">Schedule</span>
+                        </div>
+                        TODO
                     </div>
                 </div>
-                @*
-                <div class="row border border-dark m-2">
-                    Email
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        @{ 
-                            var emailNotification = Model.Activity.ActivityNotifications.FirstOrDefault(x => x.NotificationTypeId == 1);
-                            bool emailNotifcationIsEnabled = (bool)emailNotification?.IsEnabled;
-                        }
-                        <label class="btn btn-light @(emailNotifcationIsEnabled ? "active" : "")">
-                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_1_true" autocomplete="off" @(emailNotifcationIsEnabled ? "checked" : "")> On
-                        </label>
-                        <label class="btn btn-light" @(emailNotifcationIsEnabled ? "active" : "")>
-                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_1_false" autocomplete="off" @(emailNotifcationIsEnabled ? "checked" : "")> Off
-                        </label>
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">Privacy</span>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            <label class="btn btn-outline-primary @(@Model.Activity?.Privacy.Id == 1 ? "active" : "")">
+                                <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_1" autocomplete="off" @(Model.Activity?.Privacy.Id == 1 ? "checked" : "")> Private
+                            </label>
+                            <label class="btn btn-outline-primary @(@Model.Activity?.Privacy.Id == 2 ? "active" : "")">
+                                <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_2" autocomplete="off" @(Model.Activity?.Privacy.Id == 2 ? "checked" : "")> Public
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div class="row border border-dark m-2">
-                    SMS
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-light @(Model.Activity.PrivacyId == 1 ? "active" : "")">
-                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_2_true" autocomplete="off" checked> On
-                        </label>
-                        <label class="btn btn-light" @(Model.Activity.PrivacyId == 2 ? "active" : "")>
-                            <input type="radio" name="options" id="activity_@(Model.Activity.Id)_notification_2_false" autocomplete="off"> Off
-                        </label>
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">Email</span>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            @{
+                                var emailNotification = Model.Activity.ActivityNotifications?.FirstOrDefault(x => x.NotificationTypeId == 1);
+                                bool emailNotifcationIsEnabled = emailNotification?.IsEnabled ?? false;
+                            }
+                            <label class="btn btn-outline-primary @(emailNotifcationIsEnabled == true ? "active" : "")">
+                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_1" id="activity_@(Model.Activity.Id)_notification_1_true" autocomplete="off" @(emailNotifcationIsEnabled == true ? "checked" : "")> On
+                            </label>
+                            <label class="btn btn-outline-primary @(emailNotifcationIsEnabled == false ? "active" : "")">
+                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_1" id="activity_@(Model.Activity.Id)_notification_1_false" autocomplete="off" @(emailNotifcationIsEnabled == true ? "checked" : "")> Off
+                            </label>
+                        </div>
                     </div>
                 </div>
-                *@
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="">SMS</span>
+                        </div>
+                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                            @{
+                                var smsNotification = Model.Activity.ActivityNotifications?.FirstOrDefault(x => x.NotificationTypeId == 2);
+                                bool smsNotifcationIsEnabled = smsNotification?.IsEnabled ?? false;
+                            }
+                            <label class="btn btn-outline-primary @(smsNotifcationIsEnabled == true ? "active" : "")">
+                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_2" id="activity_@(Model.Activity.Id)_notification_2_true" autocomplete="off" @(smsNotifcationIsEnabled == true ? "checked" : "")> On
+                            </label>
+                            <label class="btn btn-outline-primary @(smsNotifcationIsEnabled == false ? "active" : "")">
+                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_2" id="activity_@(Model.Activity.Id)_notification_2_false" autocomplete="off" @(smsNotifcationIsEnabled == true ? "checked" : "")> Off
+                            </label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
