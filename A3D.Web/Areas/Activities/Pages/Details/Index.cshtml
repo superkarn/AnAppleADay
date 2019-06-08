@@ -5,100 +5,120 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<div class="text-center">
-    @* TODO refactor the breadcrumb into a partial view *@
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/u/@User.Identity.Name/Activities">List</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Details</li>
-        </ol>
-    </nav>
-        
-    <div class="container">
-        <div class="row">
-            <input id="activity_@(Model.Activity.Id)_name" type="text" class="form-control form-control-lg" placeholder="..." value="@Model.Activity.Name" />
-        </div>
-        
-        <div class="row">
-            <div class="col-9 border">
-                <div class="input-group">
-                    <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Unit for the values of each Activity Instance">
-                        <span class="input-group-text" id="basic-addon1">Value Unit</span>
-                    </div>
-                    <input id="activity_@(Model.Activity.Id)_value_unit" type="text" class="form-control" placeholder="" value="@Model.Activity.ValueUnit" />
-                </div>
-                <textarea id="activity_@(Model.Activity.Id)_description" class="form-control">@Model.Activity.Description</textarea>
-            </div>
-            <div class="col-3 border">
-                <div class="row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">Schedule</span>
-                        </div>
-                        TODO
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">Privacy</span>
-                        </div>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-outline-primary @(@Model.Activity?.Privacy.Id == 1 ? "active" : "")">
-                                <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_1" autocomplete="off" @(Model.Activity?.Privacy.Id == 1 ? "checked" : "")> Private
-                            </label>
-                            <label class="btn btn-outline-primary @(@Model.Activity?.Privacy.Id == 2 ? "active" : "")">
-                                <input type="radio" name="options" id="activity_@(Model.Activity.Id)_privacy_2" autocomplete="off" @(Model.Activity?.Privacy.Id == 2 ? "checked" : "")> Public
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">Email</span>
-                        </div>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            @{
-                                var emailNotification = Model.Activity.ActivityNotifications?.FirstOrDefault(x => x.NotificationTypeId == 1);
-                                bool emailNotifcationIsEnabled = emailNotification?.IsEnabled ?? false;
-                            }
-                            <label class="btn btn-outline-primary @(emailNotifcationIsEnabled == true ? "active" : "")">
-                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_1" id="activity_@(Model.Activity.Id)_notification_1_true" autocomplete="off" @(emailNotifcationIsEnabled == true ? "checked" : "")> On
-                            </label>
-                            <label class="btn btn-outline-primary @(emailNotifcationIsEnabled == false ? "active" : "")">
-                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_1" id="activity_@(Model.Activity.Id)_notification_1_false" autocomplete="off" @(emailNotifcationIsEnabled == true ? "checked" : "")> Off
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="">SMS</span>
-                        </div>
-                        <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            @{
-                                var smsNotification = Model.Activity.ActivityNotifications?.FirstOrDefault(x => x.NotificationTypeId == 2);
-                                bool smsNotifcationIsEnabled = smsNotification?.IsEnabled ?? false;
-                            }
-                            <label class="btn btn-outline-primary @(smsNotifcationIsEnabled == true ? "active" : "")">
-                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_2" id="activity_@(Model.Activity.Id)_notification_2_true" autocomplete="off" @(smsNotifcationIsEnabled == true ? "checked" : "")> On
-                            </label>
-                            <label class="btn btn-outline-primary @(smsNotifcationIsEnabled == false ? "active" : "")">
-                                <input type="radio" name="activity_@(Model.Activity.Id)_notification_2" id="activity_@(Model.Activity.Id)_notification_2_false" autocomplete="off" @(smsNotifcationIsEnabled == true ? "checked" : "")> Off
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="text-center">
+        @* TODO refactor the breadcrumb into a partial view *@
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/u/@User.Identity.Name/Activities">List</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Details</li>
+            </ol>
+        </nav>
 
-        <div>
-            <button class="btn btn-success">Save</button>
-            <a href="/u/@User.Identity.Name/Activities/@(Model.Activity.Id)/History" class="btn btn-primary">View History</a>
-            <button class="btn btn-primary">Archive</button>
-            <button class="btn btn-danger">Delete</button>
-        </div>
+        @using (Html.BeginForm(FormMethod.Post))
+        {
+            <input name="Id" type="hidden" value="@Model.Activity.Id" />
+            <input name="CreatorId" type="hidden" value="@Model.Activity.CreatorId" />
+
+            <div class="container">
+                <div class="row">
+                    <input id="activity_@(Model.Activity.Id)_name" name="Name" type="text" class="form-control form-control-lg" placeholder="..." value="@Model.Activity.Name" />
+                </div>
+
+                <div class="row">
+                    <div class="col-8 border">
+                        <div class="input-group">
+                            <div class="input-group-prepend" data-toggle="tooltip" data-placement="top" title="Unit for the values of each Activity Instance">
+                                <span class="input-group-text" id="basic-addon1">Value Unit</span>
+                            </div>
+                            <input id="activity_@(Model.Activity.Id)_value_unit" name="ValueUnit" type="text" class="form-control" placeholder="" value="@Model.Activity.ValueUnit" />
+                        </div>
+                        <textarea id="activity_@(Model.Activity.Id)_description" name="Description" class="form-control">@Model.Activity.Description</textarea>
+                    </div>
+                    <div class="col-4 border">
+                        <div class="row">
+                            <div class="input-group m-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Schedule</span>
+                                </div>
+                                <input id="activity_@(Model.Activity.Id)_schedule" name="Schedule" type="text" class="form-control" placeholder="" value="@Model.Activity.Schedule" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group m-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Active</span>
+                                </div>
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary @(@Model.Activity?.IsActive == true ? "active" : "")">
+                                        <input type="radio" name="IsActive" value="true" autocomplete="off" @(Model.Activity?.IsActive == true ? "checked" : "") /> Active
+                                    </label>
+                                    <label class="btn btn-outline-primary @(@Model.Activity?.IsActive == false ? "active" : "")">
+                                        <input type="radio" name="IsActive" value="false" autocomplete="off" @(Model.Activity?.IsActive == false ? "checked" : "") /> Archived
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group m-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Privacy</span>
+                                </div>
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-outline-primary @(@Model.Activity?.Privacy.Id == 1 ? "active" : "")">
+                                        <input type="radio" name="PrivacyId" value="1" autocomplete="off" @(Model.Activity?.Privacy.Id == 1 ? "checked" : "") /> Private
+                                    </label>
+                                    <label class="btn btn-outline-primary @(@Model.Activity?.Privacy.Id == 2 ? "active" : "")">
+                                        <input type="radio" name="PrivacyId" value="2" autocomplete="off" @(Model.Activity?.Privacy.Id == 2 ? "checked" : "") /> Public
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group m-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">Email</span>
+                                </div>
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    @{
+                                        var emailNotification = Model.Activity.ActivityNotifications?.FirstOrDefault(x => x.NotificationTypeId == 1);
+                                        bool emailNotifcationIsEnabled = emailNotification?.IsEnabled ?? false;
+                                    }
+                                    <label class="btn btn-outline-primary @(emailNotifcationIsEnabled == true ? "active" : "")">
+                                        <input type="radio" name="ActivityNotifications[1].Id" autocomplete="off" @(emailNotifcationIsEnabled == true ? "checked" : "") /> On
+                                    </label>
+                                    <label class="btn btn-outline-primary @(emailNotifcationIsEnabled == false ? "active" : "")">
+                                        <input type="radio" name="ActivityNotifications[1].Id" autocomplete="off" @(emailNotifcationIsEnabled == true ? "checked" : "") /> Off
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group m-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="">SMS</span>
+                                </div>
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    @{
+                                        var smsNotification = Model.Activity.ActivityNotifications?.FirstOrDefault(x => x.NotificationTypeId == 2);
+                                        bool smsNotifcationIsEnabled = smsNotification?.IsEnabled ?? false;
+                                    }
+                                    <label class="btn btn-outline-primary @(smsNotifcationIsEnabled == true ? "active" : "")">
+                                        <input type="radio" name="ActivityNotifications[2].Id" autocomplete="off" @(smsNotifcationIsEnabled == true ? "checked" : "") /> On
+                                    </label>
+                                    <label class="btn btn-outline-primary @(smsNotifcationIsEnabled == false ? "active" : "")">
+                                        <input type="radio" name="ActivityNotifications[2].Id" autocomplete="off" @(smsNotifcationIsEnabled == true ? "checked" : "") /> Off
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-2">
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <a href="/u/@User.Identity.Name/Activities/@(Model.Activity.Id)/History" class="btn btn-primary">View History</a>
+                    <button class="btn btn-danger" onclick="activities_details.save('saving...');">Delete</button>
+                </div>
+            </div>
+        }
     </div>
-</div>
