@@ -15,7 +15,7 @@ namespace A3D.Library.Data.Data
         public DbSet<ActivityNotification> ActivityNotifications { get; set; }
 
         public DbSet<ActivityPrivacy> ActivityPrivacies { get; set; }
-        public DbSet<ActivityStatus> ActivityStatuses { get; set; }
+        public DbSet<ActivityInstanceStatus> ActivityInstanceStatuses { get; set; }
         public DbSet<NotificationType> NotificationTypes { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -64,8 +64,8 @@ namespace A3D.Library.Data.Data
             modelBuilder.Entity<ActivityPrivacy>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<ActivityPrivacy>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
 
-            modelBuilder.Entity<ActivityStatus>().HasIndex(x => x.Name).IsUnique();
-            modelBuilder.Entity<ActivityStatus>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
+            modelBuilder.Entity<ActivityInstanceStatus>().HasIndex(x => x.Name).IsUnique();
+            modelBuilder.Entity<ActivityInstanceStatus>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
 
             modelBuilder.Entity<NotificationType>().HasIndex(x => x.Name).IsUnique();
             modelBuilder.Entity<NotificationType>().Property(x => x.Id).ValueGeneratedNever(); // LookUp tables do not have identity Ids
@@ -87,9 +87,9 @@ namespace A3D.Library.Data.Data
             modelBuilder.Entity<ActivityPrivacy>().HasData(new ActivityPrivacy { Id = 1, Name = "Private", Description = "Can be viewed only by owner" });
             modelBuilder.Entity<ActivityPrivacy>().HasData(new ActivityPrivacy { Id = 2, Name = "Public", Description = "Can be viewed by anybody" });
 
-            modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 1, Name = "Skipped", Description = "Activity Instance was skipped (not completed)" });
-            modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 2, Name = "Partial", Description = "Activity Instance was partially completed" });
-            modelBuilder.Entity<ActivityStatus>().HasData(new ActivityStatus { Id = 3, Name = "Completed", Description = "Activity Instance was completed" });
+            modelBuilder.Entity<ActivityInstanceStatus>().HasData(new ActivityInstanceStatus { Id = 1, Name = "Skipped", Description = "Activity Instance was skipped (not completed)" });
+            modelBuilder.Entity<ActivityInstanceStatus>().HasData(new ActivityInstanceStatus { Id = 2, Name = "Partial", Description = "Activity Instance was partially completed" });
+            modelBuilder.Entity<ActivityInstanceStatus>().HasData(new ActivityInstanceStatus { Id = 3, Name = "Completed", Description = "Activity Instance was completed" });
 
             modelBuilder.Entity<NotificationType>().HasData(new NotificationType { Id = 1, Name = "Email", Description = "Send notification to an email address" });
             modelBuilder.Entity<NotificationType>().HasData(new NotificationType { Id = 2, Name = "Sms", Description = "Send notification to a Sms device" });
@@ -124,6 +124,11 @@ namespace A3D.Library.Data.Data
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 1, ActivityId = 1, CreatorId = 1, Value = "3" });
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 2, ActivityId = 1, CreatorId = 1, Value = "1", StatusId = 2 });
             modelBuilder.Entity<ActivityInstance>().HasData(new ActivityInstance { Id = 3, ActivityId = 1, CreatorId = 1, StatusId = 3 });
+
+            modelBuilder.Entity<ActivityNotification>().HasData(new ActivityNotification { ActivityId = 1, NotificationTypeId = 1, IsEnabled = true, Recipient = "karn@example.com" });
+            modelBuilder.Entity<ActivityNotification>().HasData(new ActivityNotification { ActivityId = 1, NotificationTypeId = 2, IsEnabled = false, Recipient = "111-111-1111" });
+            modelBuilder.Entity<ActivityNotification>().HasData(new ActivityNotification { ActivityId = 2, NotificationTypeId = 1, IsEnabled = true, Recipient = "test@example.com" });
+            modelBuilder.Entity<ActivityNotification>().HasData(new ActivityNotification { ActivityId = 2, NotificationTypeId = 2, IsEnabled = true, Recipient = "222-222-2222" });
             #endregion
         }
     }

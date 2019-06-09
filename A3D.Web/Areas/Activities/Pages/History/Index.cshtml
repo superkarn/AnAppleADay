@@ -1,11 +1,20 @@
 ﻿@page "/u/{username}/Activities/{activityId}/History"
 @model A3D.Web.Areas.Activities.Pages.History.IndexModel
 @{
-    ViewData["Title"] = "Model.Activity.Name";
+    ViewData["Title"] = Model.Activity.Name;
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
+    @* TODO refactor the breadcrumb into a partial view *@
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/u/@User.Identity.Name/Activities">List</a></li>
+            <li class="breadcrumb-item"><a href="/u/@User.Identity.Name/Activities/@Model.Activity.Id">Details</a></li>
+            <li class="breadcrumb-item active" aria-current="page">History</li>
+        </ol>
+    </nav>
+
     <h1 class="display-4">@Model.Activity.Name (@Model.Activity.ValueUnit)</h1>
     @foreach (var activityInstance in Model.ActivityInstances)
     {
