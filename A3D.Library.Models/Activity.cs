@@ -18,7 +18,7 @@ namespace A3D.Library.Models
         public bool IsActive { get; set; } = true;
 
         public int PrivacyId { get; set; } = 1;
-        public ActivityPrivacy Privacy { get; set; } = ActivityPrivacy.Private;
+        public ActivityPrivacy Privacy { get; set; }
 
         public string Description { get; set; }
         public string ValueUnit { get; set; }

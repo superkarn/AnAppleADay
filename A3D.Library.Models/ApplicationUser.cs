@@ -7,7 +7,9 @@ namespace A3D.Library.Models
     public class ApplicationUser : IdentityUser
     {
         public bool IsActive { get; set; } = true;
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+
+        // This has to be string
+        public string CreatedDate { get; set; }
 
         public ICollection<Activity> Activities { get; set; }
     }

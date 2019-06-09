@@ -12,7 +12,7 @@ namespace A3D.Library.Models
         public ApplicationUser Creator { get; set; }
 
         public int StatusId { get; set; } = 1;
-        public ActivityInstanceStatus Status { get; set; } = ActivityInstanceStatus.Skipped;
+        public ActivityInstanceStatus Status { get; set; }
 
         public string Value { get; set; }
         public string Notes { get; set; }
