@@ -17,14 +17,14 @@ namespace A3D.Library.Models
         /// </summary>
         public bool IsActive { get; set; } = true;
 
-        public int PrivacyId { get; set; }
-        public ActivityPrivacy Privacy { get; set; }
+        public int PrivacyId { get; set; } = 1;
+        public ActivityPrivacy Privacy { get; set; } = ActivityPrivacy.Private;
 
         public string Description { get; set; }
         public string ValueUnit { get; set; }
         public string Schedule { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime LastModifiedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime LastModifiedDate { get; set; } = DateTime.UtcNow;
         public DateTime? LastCompletedDate { get; set; }
 
         public ICollection<ActivityInstance> ActivityInstances { get; set; }
