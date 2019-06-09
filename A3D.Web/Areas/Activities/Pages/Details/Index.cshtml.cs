@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using System.Security.Claims;
 
 namespace A3D.Web.Areas.Activities.Pages.Details
 {
@@ -11,6 +12,7 @@ namespace A3D.Web.Areas.Activities.Pages.Details
     public class IndexModel : PageModel
     {
         private readonly IActivityService activityService;
+        private const string ADD_URL = "add";
 
         public Activity Activity;
 
@@ -19,11 +21,27 @@ namespace A3D.Web.Areas.Activities.Pages.Details
             this.activityService = activityService;
         }
 
-        public void OnGet(int activityId)
+        public IActionResult OnGet(string activityId)
         {
             var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = this.User.ToString() } };
 
-            this.Activity = this.activityService.GetById(context, activityId);
+            // If the parameter is int, load the object by Id
+            if (int.TryParse(activityId, out int activityIdInt))
+            {
+                this.Activity = this.activityService.GetById(context, activityIdInt);
+            }
+            // If the parameter matches the ADD_URL, load a new object
+            else if (activityId.Equals(ADD_URL, StringComparison.InvariantCultureIgnoreCase))
+            {
+                this.Activity = new Activity();
+            }
+            // Else return 404
+            else
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
 
         public IActionResult OnPost(Activity model)
@@ -32,7 +50,20 @@ namespace A3D.Web.Areas.Activities.Pages.Details
 
             model.LastModifiedDate = DateTime.UtcNow;
 
-            this.activityService.Update(context, model);
+            // If the model id is 0, assume we're creating a new object
+            if (model.Id == 0)
+            {
+                // This is how you get the current user's Id
+                // https://stackoverflow.com/a/52135130/1398750
+                model.CreatorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                this.activityService.Create(context, model);
+            }
+            // Else update the object matching this Id
+            else
+            {
+                this.activityService.Update(context, model);
+            }
 
             return Redirect($"~/u/{User.Identity.Name}/Activities/{model.Id}");
         }
