@@ -1,7 +1,16 @@
-﻿namespace A3D.Library.Models.LookUp
+﻿using System.Collections.Generic;
+
+namespace A3D.Library.Models.LookUp
 {
     public class NotificationType : BaseLookUpModel
     {
+        public static IEnumerable<NotificationType> GetValues()
+        {
+            yield return NotificationType.Email;
+            yield return NotificationType.Sms;
+            yield return NotificationType.Browser;
+        }
+
         public static readonly NotificationType Email = new NotificationType()
         {
             Id = 1,

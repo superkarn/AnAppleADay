@@ -1,7 +1,16 @@
-﻿namespace A3D.Library.Models.LookUp
+﻿using System.Collections.Generic;
+
+namespace A3D.Library.Models.LookUp
 {
     public class ActivityInstanceStatus : BaseLookUpModel
     {
+        public static IEnumerable<ActivityInstanceStatus> GetValues()
+        {
+            yield return ActivityInstanceStatus.Skipped;
+            yield return ActivityInstanceStatus.Partial;
+            yield return ActivityInstanceStatus.Completed;
+        }
+
         public static readonly ActivityInstanceStatus Skipped = new ActivityInstanceStatus()
         {
             Id = 1,
