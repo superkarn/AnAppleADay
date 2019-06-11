@@ -67,5 +67,14 @@ namespace A3D.Web.Areas.Activities.Pages.Details
 
             return Redirect($"~/u/{User.Identity.Name}/Activities/{model.Id}");
         }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = this.User.ToString() } };
+
+            this.activityService.DeleteById(context, id);
+
+            return Redirect($"~/u/{User.Identity.Name}/Activities");
+        }
     }
 }
