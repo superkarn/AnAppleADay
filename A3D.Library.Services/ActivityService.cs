@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Security;
 
 namespace A3D.Library.Services
 {
@@ -26,6 +27,26 @@ namespace A3D.Library.Services
 
         public void DeleteById(ApplicationContext context, int id)
         {
+            // Make sure the current user has permission to delete this item
+
+            // If there's no current user, don't allow
+            if (context.CurrentUser == null)
+            {
+                throw new SecurityException($"User NULL is unauthorized to delete Activity id {id}");
+            }
+            else
+            {
+                var activity = this.activityRepository.GetById(id);
+
+                // if the current user isn't the Activity Creator, dont' allow
+                if (activity.CreatorId != context.CurrentUser.Id)
+                {
+                    throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to delete Activity id {id}");
+                }
+
+                // TODO allow admin in the future?
+            }
+
             try
             {
                 this.activityRepository.DeleteById(id);
