@@ -4,6 +4,7 @@ using A3D.Web.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security;
 using System.Security.Claims;
 
 namespace A3D.Web.Areas.Activities.Pages.Details
@@ -26,7 +27,16 @@ namespace A3D.Web.Areas.Activities.Pages.Details
             // If the parameter is int, load the object by Id
             if (int.TryParse(activityId, out int activityIdInt))
             {
-                this.Activity = this.activityService.GetById(this.context, activityIdInt);
+                try
+                {
+                    this.Activity = this.activityService.GetById(this.context, activityIdInt);
+                }
+                // If there's a SecurityException, return 404
+                // We don't want to return 401 or 403 because it would expose internal metadata.
+                catch (SecurityException)
+                {
+                    return NotFound();
+                }
             }
             // If the parameter matches the ADD_URL, load a new object
             else if (activityId.Equals(ADD_URL, StringComparison.InvariantCultureIgnoreCase))
@@ -35,6 +45,12 @@ namespace A3D.Web.Areas.Activities.Pages.Details
             }
             // Else return 404
             else
+            {
+                return NotFound();
+            }
+
+            // If Activity is null by this point, return 404
+            if (this.Activity == null)
             {
                 return NotFound();
             }

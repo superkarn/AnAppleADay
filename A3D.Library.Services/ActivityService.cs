@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Security;
+using A3D.Library.Models.LookUp;
 
 namespace A3D.Library.Services
 {
@@ -25,10 +26,17 @@ namespace A3D.Library.Services
             return this.activityRepository.Create(item);
         }
 
+        /// <summary>
+        /// Delete an Activity by id.
+        /// 
+        /// PERMISSIONS
+        ///   Only allow Activity creator to delete it.
+        ///   TODO allow admin in the future?
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="id"></param>
         public void DeleteById(ApplicationContext context, int id)
         {
-            // Make sure the current user has permission to delete this item
-
             // If there's no current user, don't allow
             if (context.CurrentUser == null)
             {
@@ -43,8 +51,6 @@ namespace A3D.Library.Services
                 {
                     throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to delete Activity id {id}");
                 }
-
-                // TODO allow admin in the future?
             }
 
             try
@@ -63,9 +69,30 @@ namespace A3D.Library.Services
             }
         }
 
+        /// <summary>
+        /// Returns an Activity by id.
+        /// 
+        /// PERMISSIONS
+        ///   Allow anybody to see all public Activities.
+        ///   Only allow Activity creator to see private Activities.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Activity GetById(ApplicationContext context, int id)
         {
-            return this.activityRepository.GetById(id);
+            var activity = this.activityRepository.GetById(id);
+
+            if (activity != null)
+            {
+                if (activity.PrivacyId == ActivityPrivacy.Private.Id
+                    && activity.CreatorId != context.CurrentUser.Id)
+                {
+                    throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to view Activity id {id}");
+                }
+            }
+
+            return activity;
         }
 
         public IEnumerable<Activity> GetByCreatorId(ApplicationContext context, string creatorId)
