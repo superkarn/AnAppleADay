@@ -1,15 +1,15 @@
 ﻿using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
+using A3D.Web.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Security.Claims;
 
 namespace A3D.Web.Areas.Activities.Pages.Details
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly IActivityService activityService;
         private const string ADD_URL = "add";
@@ -23,12 +23,10 @@ namespace A3D.Web.Areas.Activities.Pages.Details
 
         public IActionResult OnGet(string activityId)
         {
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = this.User.ToString() } };
-
             // If the parameter is int, load the object by Id
             if (int.TryParse(activityId, out int activityIdInt))
             {
-                this.Activity = this.activityService.GetById(context, activityIdInt);
+                this.Activity = this.activityService.GetById(this.context, activityIdInt);
             }
             // If the parameter matches the ADD_URL, load a new object
             else if (activityId.Equals(ADD_URL, StringComparison.InvariantCultureIgnoreCase))
@@ -46,8 +44,6 @@ namespace A3D.Web.Areas.Activities.Pages.Details
 
         public IActionResult OnPost(Activity model)
         {
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = this.User.ToString() } };
-
             model.LastModifiedDate = DateTime.UtcNow;
 
             // If the model id is 0, assume we're creating a new object
@@ -57,12 +53,12 @@ namespace A3D.Web.Areas.Activities.Pages.Details
                 // https://stackoverflow.com/a/52135130/1398750
                 model.CreatorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                this.activityService.Create(context, model);
+                this.activityService.Create(this.context, model);
             }
             // Else update the object matching this Id
             else
             {
-                this.activityService.Update(context, model);
+                this.activityService.Update(this.context, model);
             }
 
             return Redirect($"~/u/{User.Identity.Name}/Activities/{model.Id}");
@@ -70,9 +66,7 @@ namespace A3D.Web.Areas.Activities.Pages.Details
 
         public IActionResult OnPostDelete(int id)
         {
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = this.User.ToString() } };
-
-            this.activityService.DeleteById(context, id);
+            this.activityService.DeleteById(this.context, id);
 
             return Redirect($"~/u/{User.Identity.Name}/Activities");
         }
