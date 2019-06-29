@@ -42,17 +42,22 @@ namespace A3D.Library.Services
             {
                 throw new SecurityException($"User NULL is unauthorized to delete Activity id {id}");
             }
-            else
-            {
-                var activity = this.activityRepository.GetById(id);
 
-                // if the current user isn't the Activity Creator, dont' allow
-                if (activity.CreatorId != context.CurrentUser.Id)
-                {
-                    throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to delete Activity id {id}");
-                }
+            var activity = this.activityRepository.GetById(id);
+            
+            // If the item doesn't exist, treat it as if the item has been deleted
+            if (activity == null)
+            {
+                return;
             }
 
+            // TODO allow Admin 
+            // If the current user is not the item creator, don't allow
+            if (activity.CreatorId != context.CurrentUser.Id)
+            {
+                throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to delete Activity id {id}");
+            }
+            
             try
             {
                 this.activityRepository.DeleteById(id);
@@ -109,7 +114,26 @@ namespace A3D.Library.Services
 
         public void Update(ApplicationContext context, Activity item)
         {
+            // If there's no current user, don't allow
+            if (context.CurrentUser == null)
+            {
+                throw new SecurityException($"User NULL is unauthorized to delete Activity id {item.Id}");
+            }
+
             var existingItem = this.activityRepository.GetById(item.Id);
+            
+            // If the item doesn't exist, throw an exception
+            if (existingItem == null)
+            {
+                throw new NullReferenceException($"Activity id {item.Id} does not exist.");
+            }
+
+            // TODO allow Admin 
+            // If the current user is not the item creator, don't allow
+            if (existingItem.CreatorId != context.CurrentUser.Id)
+            {
+                throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to update Activity id {item.Id}.");
+            }
 
             // TODO make this work with PATCH
             existingItem.Name = item.Name;

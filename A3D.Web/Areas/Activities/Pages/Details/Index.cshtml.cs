@@ -67,7 +67,7 @@ namespace A3D.Web.Areas.Activities.Pages.Details
             {
                 // This is how you get the current user's Id
                 // https://stackoverflow.com/a/52135130/1398750
-                model.CreatorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                model.CreatorId = this.context.CurrentUser.Id;
 
                 this.activityService.Create(this.context, model);
             }

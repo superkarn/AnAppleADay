@@ -7,7 +7,7 @@ namespace A3D.Web.Utils
 {
     public class BasePageModel : PageModel
     {
-        protected ApplicationContext context;
+        public ApplicationContext context;
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
