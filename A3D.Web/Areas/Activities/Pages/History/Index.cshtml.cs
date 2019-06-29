@@ -1,13 +1,13 @@
 ﻿using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
+using A3D.Web.Utils;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 
 namespace A3D.Web.Areas.Activities.Pages.History
 {
     [Authorize]
-    public class IndexModel : PageModel
+    public class IndexModel : BasePageModel
     {
         private readonly IActivityService activityService;
         private readonly IActivityInstanceService activityInstanceService;
@@ -23,10 +23,8 @@ namespace A3D.Web.Areas.Activities.Pages.History
 
         public void OnGet(int activityId)
         {
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = this.User.ToString() } };
-
-            this.Activity = this.activityService.GetById(context, activityId);
-            this.ActivityInstances = this.activityInstanceService.GetByActivityId(context, activityId);
+            this.Activity = this.activityService.GetById(this.context, activityId);
+            this.ActivityInstances = this.activityInstanceService.GetByActivityId(this.context, activityId);
         }
     }
 }
