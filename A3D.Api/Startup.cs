@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using A3D.Library.Data.Data;
+using A3D.Library.Data.Repositories.EntityFramework;
+using A3D.Library.Data.Repositories.Interfaces;
 using A3D.Library.Global;
 using A3D.Library.Services;
 using A3D.Library.Services.Interfaces;
@@ -12,6 +14,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -82,17 +85,20 @@ namespace A3D.Api
             #endregion
 
             #region Database connection
-            var connectionString = Microsoft
-                .Extensions
-                .Configuration
-                .ConfigurationExtensions
-                .GetConnectionString(this.Configuration, "DefaultConnection");
-
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             #endregion
 
             #region Dependency Injection
+            services.AddScoped<IActivityInstanceService, ActivityInstanceService>();
+            services.AddScoped<IActivityNotificationService, ActivityNotificationService>();
+            services.AddScoped<IActivityService, ActivityService>();
             services.AddScoped<ILookUpService, LookUpService>();
+
+            services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddScoped<IActivityInstanceRepository, ActivityInstanceRepository>();
+            services.AddScoped<IActivityNotificationRepository, ActivityNotificationRepository>();
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
             #endregion
         }
 
