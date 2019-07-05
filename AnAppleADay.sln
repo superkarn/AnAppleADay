@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Library.Data", "A3D.Lib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Library.Services", "A3D.Library.Services\A3D.Library.Services.csproj", "{6D82CBF1-F3F0-4B65-9E4D-1FED8AF021B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3D.Tests", "A3D.Tests\A3D.Tests.csproj", "{79722474-D061-48B0-ADB6-C50611637FA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "A3D.Tests", "A3D.Tests\A3D.Tests.csproj", "{79722474-D061-48B0-ADB6-C50611637FA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A3D.Api", "A3D.Api\A3D.Api.csproj", "{6DD752AA-0C6E-4498-91CA-B381C593F5A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{79722474-D061-48B0-ADB6-C50611637FA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79722474-D061-48B0-ADB6-C50611637FA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79722474-D061-48B0-ADB6-C50611637FA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD752AA-0C6E-4498-91CA-B381C593F5A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD752AA-0C6E-4498-91CA-B381C593F5A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD752AA-0C6E-4498-91CA-B381C593F5A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD752AA-0C6E-4498-91CA-B381C593F5A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
