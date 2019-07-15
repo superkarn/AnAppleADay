@@ -19,7 +19,7 @@ namespace A3D.Library.Services
         // users hardcoded for simplicity, store in a db with hashed passwords in production applications
         private IList<JwtUser> users = new List<JwtUser>
         {
-            new JwtUser { Id = 1, Username = "karn", Password = "password" }
+            new JwtUser { Id = 1, Username = "karn", Token = "12345abcde" }
         };
 
         private readonly JwtAppSettings jwtAppSettings;
@@ -29,11 +29,11 @@ namespace A3D.Library.Services
             this.jwtAppSettings = jwtAppSettings;
         }
 
-        public JwtUser Authenticate(string username, string password)
+        public JwtUser Authenticate(string apiToken)
         {
             // TODO authenticate credential against the database
             // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-            var user = this.users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            var user = this.users.SingleOrDefault(x => x.Token == apiToken);
 
             if (user == null)
             {
@@ -53,9 +53,6 @@ namespace A3D.Library.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
-
-            // remove password before returning
-            user.Password = null;
 
             return user;
         }

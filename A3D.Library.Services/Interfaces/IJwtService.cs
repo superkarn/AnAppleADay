@@ -4,6 +4,6 @@ namespace A3D.Library.Services.Interfaces
 {
     public interface IJwtService
     {
-        JwtUser Authenticate(string username, string password);
+        JwtUser Authenticate(string apiToken);
     }
 }

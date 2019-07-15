@@ -10,11 +10,11 @@ namespace A3D.Api.Controllers
     [ApiController]
     public class JwtController : ControllerBase
     {
-        private readonly IJwtService authenticationService;
+        private readonly IJwtService jwtService;
 
         public JwtController(IJwtService authenticationService)
         {
-            this.authenticationService = authenticationService;
+            this.jwtService = authenticationService;
         }
 
         // POST api/jwt/authenticate
@@ -22,11 +22,11 @@ namespace A3D.Api.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]JwtUser userObj)
         {
-            var user = this.authenticationService.Authenticate(userObj.Username, userObj.Password);
+            var user = this.jwtService.Authenticate(userObj.Token);
 
             if (user == null)
             {
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = "The token in invalid." });
             }
 
             return Ok(user);

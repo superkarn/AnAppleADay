@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "13b7c972-1f76-4406-8e82-9daf51c83345",
+		"_postman_id": "eeddc6cf-3750-4705-b1f6-6aa54412fe56",
 		"name": "A3D.Api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -23,10 +23,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{userId}}/activities",
 							"protocol": "https",
@@ -59,10 +55,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{userId}}/activities/{{activityId}}",
 							"protocol": "https",
@@ -223,10 +215,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{userId}}/activities/{{activityId}}/notifications/",
 							"protocol": "https",
@@ -262,10 +250,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{userId}}/activities/{{activityId}}/notifications/notificationTypes/{{notificationTypeId}}",
 							"protocol": "https",
@@ -438,10 +422,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{userId}}/activities/{{activityId}}/instances/",
 							"protocol": "https",
@@ -477,10 +457,6 @@
 						},
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{userId}}/activities/{{activityId}}/instances/{{activityInstanceId}}",
 							"protocol": "https",
@@ -648,7 +624,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ username: \"karn\", password: \"password\" }"
+							"raw": "{ Token: \"{{apiToken}}\" }"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/jwt/authenticate",
@@ -727,10 +703,6 @@
 				},
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "https://{{host}}:{{port}}/api/lookUpValues",
 					"protocol": "https",
