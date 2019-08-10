@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
@@ -48,33 +49,57 @@ namespace A3D.Api.Controllers
 
             try
             {
-                return this.activityInstanceService.Create(context, value);
+                var newId = this.activityInstanceService.Create(context, value);
+                return Created($"api/users/{username}/activites/instances/{newId}", newId);
             }
-            catch
+            catch (Exception ex)
             {
+                // TODO convert this into user-friendly response
                 // for now, return 409 Conflict
-                return Conflict();
+                return Conflict(ex);
             }
         }
 
         // PUT api/users/{username}/activities/{activityId}/instances/5
         [HttpPut("{id}")]
-        public void Put(string username, int activityId, int id, [FromBody] ActivityInstance value)
+        public ActionResult Put(string username, int activityId, int id, [FromBody] ActivityInstance value)
         {
             // TODO replace this with the current user
             var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
 
-            this.activityInstanceService.Update(context, value);
+            try
+            {
+                this.activityInstanceService.Update(context, value);
+            }
+            catch (Exception ex)
+            {
+                // TODO convert this into user-friendly response
+                // for now, return 409 Conflict
+                return Conflict(ex);
+            }
+
+            return Ok();
         }
 
         // DELETE api/users/{username}/activities/{activityId}/instances/5
         [HttpDelete("{id}")]
-        public void Delete(string username, int activityId, int id)
+        public ActionResult Delete(string username, int activityId, int id)
         {
             // TODO replace this with the current user
             var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
 
-            this.activityInstanceService.DeleteById(context, id);
+            try
+            {
+                this.activityInstanceService.DeleteById(context, id);
+            }
+            catch (Exception ex)
+            {
+                // TODO convert this into user-friendly response
+                // for now, return 409 Conflict
+                return Conflict(ex);
+            }
+
+            return Ok();
         }
     }
 }

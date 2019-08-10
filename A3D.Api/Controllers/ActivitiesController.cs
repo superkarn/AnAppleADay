@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
@@ -41,40 +42,64 @@ namespace A3D.Api.Controllers
 
         // POST api/users/{username}/activities
         [HttpPost]
-        public ActionResult<int> Post(string username, [FromBody] Activity value)
+        public ActionResult Post(string username, [FromBody] Activity value)
         {
             // TODO replace this with the current user
             var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
 
             try
             {
-                return this.activityService.Create(context, value);
+                var newId = this.activityService.Create(context, value);
+                return Created($"api/users/{username}/activites/{newId}", newId);
             }
-            catch
+            catch(Exception ex)
             {
+                // TODO convert this into user-friendly response
                 // for now, return 409 Conflict
-                return Conflict();
+                return Conflict(ex);
             }
         }
 
         // PUT api/users/{username}/activities/5
         [HttpPut("{id}")]
-        public void Put(string username, int id, [FromBody] Activity value)
+        public ActionResult Put(string username, int id, [FromBody] Activity value)
         {
             // TODO replace this with the current user
             var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
 
-            this.activityService.Update(context, value);
+            try
+            {
+                this.activityService.Update(context, value);
+            }
+            catch (Exception ex)
+            {
+                // TODO convert this into user-friendly response
+                // for now, return 409 Conflict
+                return Conflict(ex);
+            }
+
+            return Ok();
         }
 
         // DELETE api/users/{username}/activities/5
         [HttpDelete("{id}")]
-        public void Delete(string username, int id)
+        public ActionResult Delete(string username, int id)
         {
             // TODO replace this with the current user
             var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
 
-            this.activityService.DeleteById(context, id);
+            try
+            {
+                this.activityService.DeleteById(context, id);
+            }
+            catch (Exception ex)
+            {
+                // TODO convert this into user-friendly response
+                // for now, return 409 Conflict
+                return Conflict(ex);
+            }
+
+            return Ok();
         }
     }
 }
