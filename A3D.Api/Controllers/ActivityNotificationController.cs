@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ namespace A3D.Api.Controllers
     [Authorize]
     [Route("api/users/{username}/activities/{activityId}/notifications")]
     [ApiController]
-    public class ActivityNotificationController : ControllerBase
+    public class ActivityNotificationController : BaseController
     {
         private readonly IActivityNotificationService  activityNotificationService;
 
@@ -24,32 +25,29 @@ namespace A3D.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<ActivityNotification>> Get(string username, int activityId)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
-            return this.activityNotificationService.GetByActivityId(context, activityId).ToList();
+            return this.activityNotificationService.GetByActivityId(this.Context, activityId).ToList();
         }
 
         // GET api/users/{username}/activities/{activityId}/notifications/notificationTypes/5
         [HttpGet("notificationTypes/{notificationTypeId}")]
         public ActionResult<ActivityNotification> Get(string username, int activityId, int notificationTypeId)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
-            return this.activityNotificationService.GetByKey(context, activityId, notificationTypeId);
+            return this.activityNotificationService.GetByKey(this.Context, activityId, notificationTypeId);
         }
 
         // POST api/users/{username}/activities/{activityId}/notifications
         [HttpPost]
         public ActionResult Post(string username, int activityId, [FromBody] ActivityNotification value)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityNotificationService.Create(context, value);
+                this.activityNotificationService.Create(this.Context, value);
                 return Ok();
             }
             catch
@@ -63,12 +61,11 @@ namespace A3D.Api.Controllers
         [HttpPut("notificationTypes/{notificationTypeId}")]
         public ActionResult Put(string username, int activityId, int notificationTypeId, [FromBody] ActivityNotification value)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityNotificationService.Update(context, value);
+                this.activityNotificationService.Update(this.Context, value);
             }
             catch (Exception ex)
             {
@@ -84,12 +81,11 @@ namespace A3D.Api.Controllers
         [HttpDelete("notificationTypes/{notificationTypeId}")]
         public ActionResult Delete(string username, int activityId, int notificationTypeId)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityNotificationService.DeleteByKey(context, activityId, notificationTypeId);
+                this.activityNotificationService.DeleteByKey(this.Context, activityId, notificationTypeId);
             }
             catch (Exception ex)
             {

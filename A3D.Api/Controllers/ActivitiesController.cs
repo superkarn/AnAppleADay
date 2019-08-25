@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ namespace A3D.Api.Controllers
     [Authorize]
     [Route("api/users/{username}/activities")]
     [ApiController]
-    public class ActivitiesController : ControllerBase
+    public class ActivitiesController : BaseController
     {
         private readonly IActivityService activityService;
 
@@ -24,32 +25,29 @@ namespace A3D.Api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Activity>> Get(string username)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
-            return this.activityService.GetByCreatorUsername(context, username).ToList();
+            return this.activityService.GetByCreatorUsername(this.Context, username).ToList();
         }
 
         // GET api/users/{username}/activities/5
         [HttpGet("{id}")]
         public ActionResult<Activity> Get(string username, int id)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
-            return this.activityService.GetById(context, id);
+            return this.activityService.GetById(Context, id);
         }
 
         // POST api/users/{username}/activities
         [HttpPost]
         public ActionResult Post(string username, [FromBody] Activity value)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                var newId = this.activityService.Create(context, value);
+                var newId = this.activityService.Create(this.Context, value);
                 return Created($"api/users/{username}/activites/{newId}", newId);
             }
             catch(Exception ex)
@@ -64,12 +62,11 @@ namespace A3D.Api.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(string username, int id, [FromBody] Activity value)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityService.Update(context, value);
+                this.activityService.Update(this.Context, value);
             }
             catch (Exception ex)
             {
@@ -85,12 +82,11 @@ namespace A3D.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string username, int id)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityService.DeleteById(context, id);
+                this.activityService.DeleteById(this.Context, id);
             }
             catch (Exception ex)
             {

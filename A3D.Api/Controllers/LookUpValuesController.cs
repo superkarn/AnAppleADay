@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers
+namespace A3D.Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class LookUpValuesController : ControllerBase
+    public class LookUpValuesController : BaseController
     {
         private readonly ILookUpService lookUpService;
 
@@ -22,10 +23,9 @@ namespace Api.Controllers
         [HttpGet]
         public ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>> Get()
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { Id = "1" } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
-            return new ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>>(this.lookUpService.GetAll(context));
+            return new ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>>(this.lookUpService.GetAll(this.Context));
         }
     }
 }

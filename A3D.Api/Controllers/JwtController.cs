@@ -8,7 +8,7 @@ namespace A3D.Api.Controllers
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class JwtController : ControllerBase
+    public class JwtController : BaseController
     {
         private readonly IJwtService jwtService;
 

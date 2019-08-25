@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using A3D.Library.Models;
 using A3D.Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -11,7 +12,7 @@ namespace A3D.Api.Controllers
     [Authorize]
     [Route("api/users/{username}/activities/{activityId}/instances")]
     [ApiController]
-    public class ActivityInstanceController : ControllerBase
+    public class ActivityInstanceController : BaseController
     {
         private readonly IActivityInstanceService activityInstanceService;
 
@@ -44,12 +45,11 @@ namespace A3D.Api.Controllers
         [HttpPost]
         public ActionResult<int> Post(string username, int activityId, [FromBody] ActivityInstance value)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                var newId = this.activityInstanceService.Create(context, value);
+                var newId = this.activityInstanceService.Create(this.Context, value);
                 return Created($"api/users/{username}/activites/instances/{newId}", newId);
             }
             catch (Exception ex)
@@ -64,12 +64,11 @@ namespace A3D.Api.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(string username, int activityId, int id, [FromBody] ActivityInstance value)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityInstanceService.Update(context, value);
+                this.activityInstanceService.Update(this.Context, value);
             }
             catch (Exception ex)
             {
@@ -85,12 +84,11 @@ namespace A3D.Api.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(string username, int activityId, int id)
         {
-            // TODO replace this with the current user
-            var context = new ApplicationContext() { CurrentUser = new ApplicationUser() { UserName = username } };
+            this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             try
             {
-                this.activityInstanceService.DeleteById(context, id);
+                this.activityInstanceService.DeleteById(this.Context, id);
             }
             catch (Exception ex)
             {
