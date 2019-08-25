@@ -13,10 +13,16 @@ namespace A3D.Library.Global
             BaseUrl = "https://localhost:44301" // TODO figure out how to un-hardcode this
         };
 
+        public static Application Authentication { get; set; } = new Application
+        {
+            Name = "Authentication",
+            BaseUrl = "https://localhost:44302" // TODO figure out how to un-hardcode this
+        };
+
         public static Application Web { get; set; } = new Application
         {
             Name = "Web",
-            BaseUrl = "https://localhost:44302" // TODO figure out how to un-hardcode this
+            BaseUrl = "https://localhost:44303" // TODO figure out how to un-hardcode this
         };
 
         /// <summary>
@@ -24,7 +30,7 @@ namespace A3D.Library.Global
         /// </summary>
         public static IEnumerable<Application> Values
         {
-            get { return new[] { Api, Web }; }
+            get { return new[] { Api, Authentication, Web }; }
         }
 
         /// <summary>

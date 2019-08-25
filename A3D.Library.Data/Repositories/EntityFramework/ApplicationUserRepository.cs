@@ -19,7 +19,7 @@ namespace A3D.Library.Data.Repositories.EntityFramework
 
         public IQueryable<IdentityUser> GetByUsername(string username)
         {
-            return this.DbSet.Where(x => x.NormalizedUserName == username.ToUpper());
+            return this.DbSet.Where(x => x.UserName.ToUpper() == username.ToUpper());
         }
     }
 }

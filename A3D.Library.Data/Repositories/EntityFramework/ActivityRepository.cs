@@ -3,9 +3,8 @@ using System.Linq;
 using A3D.Library.Data.Data;
 using A3D.Library.Models;
 using A3D.Library.Data.Repositories.Interfaces;
-using A3D.Library.Data.Repositories.EntityFramework;
 
-namespace A3D.Library.Repositories.EntityFramework
+namespace A3D.Library.Data.Repositories.EntityFramework
 {
     public class ActivityRepository : BaseWithIdRepository<Activity>, IActivityRepository
     {
